@@ -18,4 +18,6 @@
 	<color name="____bar_color">#A4FFCE</color>
 	<color name="_____color">#666493</color>
 	<color name="______ek1_color">#FFFFFF</color>
+
+	<color name="bottomNavColor">#00000000</color>
 </resources>

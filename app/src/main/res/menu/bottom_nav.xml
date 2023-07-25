@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="ASMR"
+        android:id="@+id/asmr"
+        android:icon="@drawable/bottom_asmricon" />
+    <item android:title="책 검색"
+        android:id="@+id/search"
+        android:icon="@drawable/bottom_searchicon" />
+    <item android:title="캐릭터"
+        android:id="@+id/home"
+        android:icon="@drawable/bottom_homeicon" />
+    <item android:title="책장"
+        android:id="@+id/shelf"
+        android:icon="@drawable/bottom_bookshelficon" />
+    <item android:title="마이페이지"
+        android:id="@+id/mypage"
+        android:icon="@drawable/bottom_mypageicon" />
+</menu>
