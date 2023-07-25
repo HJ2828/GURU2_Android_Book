@@ -3,12 +3,88 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".MyPageFragment">
-
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
+        android:id="@+id/backgroundLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="mypage fragment" />
+        android:orientation="vertical">
 
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="320dp"
+            android:layout_height="58dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/mypage_title" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="97dp"
+            android:layout_height="26dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="5dp"
+            android:src="@drawable/mypage_profiletext" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profile00"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                app:civ_border_overlay="false"
+                app:civ_border_width="5dp"
+                app:civ_border_color="@color/profile_outline"
+                android:src="@drawable/mypage_circle"
+                android:layout_margin="5dp"/>
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profile01"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                app:civ_border_color="@color/profile_hideline"
+                app:civ_border_overlay="false"
+                app:civ_border_width="5dp"
+                android:src="@drawable/mypage_circle"
+                android:layout_margin="5dp"
+                android:visibility="gone"/>
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profile02"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                app:civ_border_overlay="false"
+                app:civ_border_width="5dp"
+                app:civ_border_color="@color/profile_hideline"
+                android:src="@drawable/mypage_circle"
+                android:layout_margin="5dp"
+                android:visibility="gone"/>
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profile03"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                app:civ_border_overlay="false"
+                app:civ_border_width="5dp"
+                app:civ_border_color="@color/profile_hideline"
+                android:src="@drawable/mypage_circle"
+                android:layout_margin="5dp"
+                android:visibility="gone"/>
+
+            <Button
+                android:id="@+id/btnAdd"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="@drawable/mypage_btnadd"
+                android:text="."
+                android:textColor="#00FFFFFF" />
+
+        </LinearLayout>
+    </LinearLayout>
 </FrameLayout>
