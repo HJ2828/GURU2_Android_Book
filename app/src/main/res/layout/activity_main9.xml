@@ -4,5 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/splashscreen"
-    tools:context=".MainActivity"/>
+    android:background="@drawable/bookinfoscreen"
+    tools:context=".MainActivity9">
+
+</androidx.constraintlayout.widget.ConstraintLayout>
