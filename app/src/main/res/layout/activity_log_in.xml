@@ -4,6 +4,69 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/login_bg"
     tools:context=".LogInActivity">
+
+    <LinearLayout
+        android:id="@+id/linearLayout4"
+        android:layout_width="318dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="35dp"
+        android:background="@drawable/signup_login_password"
+        android:gravity="bottom"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
+
+        <EditText
+            android:id="@+id/edtPassword"
+            android:layout_width="296dp"
+            android:layout_height="25dp"
+            android:layout_gravity="bottom|center"
+            android:layout_marginBottom="6.5dp"
+            android:background="@drawable/signup_login_edittext"
+            android:ems="10"
+            android:inputType="text"
+            tools:inputType="textPassword" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="318dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="190dp"
+        android:background="@drawable/signup_login_email"
+        android:gravity="bottom"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <EditText
+            android:id="@+id/edtEmail"
+            android:layout_width="296dp"
+            android:layout_height="25dp"
+            android:layout_gravity="bottom|center"
+            android:layout_marginBottom="6.5dp"
+            android:background="@drawable/signup_login_edittext"
+            android:ems="10"
+            android:inputType="textWebEmailAddress" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnOkay"
+        android:layout_width="318dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="70dp"
+        android:background="@drawable/login_btnokay"
+        android:text="."
+        android:textColor="#00FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

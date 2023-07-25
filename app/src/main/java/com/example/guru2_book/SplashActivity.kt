@@ -12,7 +12,7 @@ class SplashActivity : AppCompatActivity() {
 
         Handler().postDelayed({
             // You can declare your desire activity here to open after finishing splash screen. Like MainActivity
-            val intent = Intent(this,LogInActivity::class.java)
+            val intent = Intent(this,LoginSignupActivity::class.java)
             startActivity(intent)
             finish()
         }, 3000)    // 스플래쉬 화면 3초 후 다음 화면(로그인화면)으로
