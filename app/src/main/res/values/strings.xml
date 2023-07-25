@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<!-- 1____________ strings -->
+    <!-- 1____________ strings -->
 
-	<string name="app_name">Page 1</string>
-	<string name="ek_img_content">ExportKit Image</string>
-	<string name="_____string"></string>
-	<string name="______string"></string>
-	<string name="______ek1_string"></string>
-	<string name="_______________string">   </string>
-	<string name="____________________string">    </string>
+    <string name="app_name">Page 1</string>
+    <string name="ek_img_content">ExportKit Image</string>
+    <string name="_____string"></string>
+    <string name="______string"></string>
+    <string name="______ek1_string"></string>
+    <string name="_______________string">   </string>
+    <string name="____________________string">    </string>
 </resources>
