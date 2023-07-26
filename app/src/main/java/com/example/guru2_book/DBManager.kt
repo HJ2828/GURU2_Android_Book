@@ -36,7 +36,7 @@ class DBManager(
         p0!!.execSQL("INSERT INTO Goal VALUES (15, 160, 'image16');")
 
         // 계정 테이블
-        p0!!.execSQL("CREATE TABLE Account (AEmail text NOT NULL, PPassword text, PCurrentProfile INTEGER, PRIMARY KEY(PEmail));")
+        p0!!.execSQL("CREATE TABLE Account (AEmail text NOT NULL, APassword text, ACurrentProfile INTEGER, PRIMARY KEY(AEmail));")
         // 읽은 책 테이블
         p0!!.execSQL("CREATE TABLE Read (RISBN INTEGER NOT NULL, REmail text NOT NULL, RReport text, RRating REAL, PRIMARY KEY(RISBN, REmail), FOREIGN KEY(RISBN) REFERENCES Book(ISBN), FOREIGN KEY(REmail) REFERENCES Profile(PEmail));")
         // 찜한 책 테이블
