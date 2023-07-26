@@ -7,6 +7,18 @@
     android:background="@drawable/login_bg"
     tools:context=".LogInActivity">
 
+    <Button
+        android:id="@+id/btnBack"
+        android:layout_width="34dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="49dp"
+        android:layout_marginTop="58dp"
+        android:background="@drawable/add_changeprofile_btnback"
+        android:text="."
+        android:textColor="#00FFFFFF"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <LinearLayout
         android:id="@+id/linearLayout4"
         android:layout_width="318dp"
