@@ -59,7 +59,7 @@ class SignupActivity : AppCompatActivity() {
             var password : String = edtPassword.text.toString()
             var passwordCheck : String = edtPasswordCheck.text.toString()
 
-            if(name.trim().isEmpty() || email.trim().isEmpty() || email.trim().isEmpty() || email.trim().isEmpty()) { // 빈칸이 있을 경우
+            if(name.trim().isEmpty() || email.trim().isEmpty() || password.trim().isEmpty() || passwordCheck.trim().isEmpty()) { // 빈칸이 있을 경우
                 Toast.makeText(applicationContext, "입력 칸을 전부 채워주십시오.", Toast.LENGTH_SHORT).show() // 입력 칸을 전부 채워달라는 토스트
             } else if(!isNotDup){ // 이메일 중복 확인을 하지 않았을 경우
                 Toast.makeText(applicationContext, "이메일 중복 확인을 해주십시오.", Toast.LENGTH_SHORT).show() // 이메일 중복을 해달라는 토스트

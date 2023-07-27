@@ -111,7 +111,7 @@ class MyPageFragment : Fragment() {
             startActivity(intent)
         }
 
-        activeProfile(); // 프로필 활성화 함수
+        activeProfile() // 프로필 활성화 함수
 
         return view
     }
@@ -138,7 +138,7 @@ class MyPageFragment : Fragment() {
     private fun changeProfile(pNum : Int, pCount : Int){
         for(index in 0 .. pCount - 1){
             if(index == pNum){ // 선택한 프로필일 경우
-                profileImageArray.get(index).borderWidth = 5
+                profileImageArray.get(index).borderWidth = 10
             } else { // 선택한 프로필이 아닐 경우
                 profileImageArray.get(index).borderWidth = 0
             }
@@ -146,7 +146,7 @@ class MyPageFragment : Fragment() {
 
         // 현재 사용하는 프로필 변경
         bookDB = dbManager.writableDatabase // 데이터베이스 불러오기
-        bookDB.execSQL("UPDATE Account SET ACurrentProfile = $pNum WHERE PEmail = '$userEmail';") // 계정 테이블의 현재 사용하고 있는 프로필 번호 바꾸기
+        bookDB.execSQL("UPDATE Account SET ACurrentProfile = $pNum WHERE AEmail = '$userEmail';") // 계정 테이블의 현재 사용하고 있는 프로필 번호 바꾸기
         bookDB.close()
     }
 
@@ -156,21 +156,27 @@ class MyPageFragment : Fragment() {
 
         // 이메일에 해당하는 프로필들 가져오기
         var cursor : Cursor
-        cursor = bookDB.rawQuery("SELECT PNum, PName, PImage FROM Profile WHERE PEmail = '$userEmail' ORDER BY PNum ASC;", null)
+        cursor = bookDB.rawQuery("SELECT PName, PImage FROM Profile WHERE PEmail = '$userEmail' ORDER BY PNum ASC;", null)
 
         var i : Int = 0
 
         // 프로필 활성화
         while(cursor.moveToNext()){
-            if(cursor.getString(2).equals(null)){
+            if(cursor.getString(1) == null){
                 profileImageArray.get(i).setImageResource(R.drawable.mypage_circle)
             } else {
-                profileImageArray.get(i).setImageURI(Uri.parse(cursor.getString(2).toString()))
+                profileImageArray.get(i).setImageURI(Uri.parse(cursor.getString(1).toString()))
             }
 
-            profileNameTextArray.get(i).text = cursor.getString(1).toString()
+            profileNameTextArray.get(i).text = cursor.getString(0).toString()
             profileLinearArray.get(i).visibility = View.VISIBLE
             i++
+        }
+
+        cursor = bookDB.rawQuery("SELECT ACurrentProfile FROM Account WHERE AEmail = '$userEmail';", null)
+
+        if(cursor.moveToNext()){
+            changeProfile(cursor.getInt(0), profileCount) // 현재 사용하고 있는 프로필 표시
         }
 
         cursor.close()

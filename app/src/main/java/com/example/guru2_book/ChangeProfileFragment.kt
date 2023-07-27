@@ -1,10 +1,15 @@
 package com.example.guru2_book
 
+import android.Manifest
+import android.app.Activity
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import androidx.fragment.app.Fragment
@@ -16,7 +21,10 @@ import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import de.hdodenhof.circleimageview.CircleImageView
 
 
@@ -48,6 +56,7 @@ class ChangeProfileFragment : Fragment() {
 
     // 기타 변수
     var imageUri: Uri? = null // 프로필 이미지 uri
+    var profileName : String? = null // 프로필 이읆
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -104,16 +113,26 @@ class ChangeProfileFragment : Fragment() {
 
         // 이메일과 프로필 번호에 해당하는 프로필들 가져오기
         var cursor : Cursor
-        cursor = bookDB.rawQuery("SELECT PNum, PName, PImage FROM Profile WHERE PEmail = '$userEmail' AND PNum = $profileNum;", null)
+        cursor = bookDB.rawQuery("SELECT PName, PImage FROM Profile WHERE PEmail = '$userEmail' AND PNum = $profileNum;", null)
 
         if(cursor.moveToNext()){
             // 프로필 이름, 사진 가져오기
-            edtName.setText(cursor.getString(1).toString())
-            if(cursor.getString(2).equals(null)){
+            profileName = cursor.getString(0).toString()
+            edtName.setText(profileName)
+            if(cursor.getString(1) == null){
                 profileImage.setImageResource(R.drawable.mypage_circle)
             } else {
-                imageUri = Uri.parse(cursor.getString(2).toString())
+                imageUri = Uri.parse(cursor.getString(1).toString())
                 profileImage.setImageURI(imageUri)
+            }
+        }
+
+        // 메인 계정일 경우 비밀번호 가져오기
+        if(profileNum == 0){
+            cursor = bookDB.rawQuery("SELECT APassword FROM Account WHERE AEmail = '$userEmail';", null)
+            if(cursor.moveToNext()){
+                edtPassword.setText(cursor.getString(0).toString())
+                edtPasswordCheck.setText(cursor.getString(0).toString())
             }
         }
 
@@ -125,22 +144,38 @@ class ChangeProfileFragment : Fragment() {
             activity?.fragmentChangeInFragment(MyPageFragment.newInstance(userEmail)) // 마이페이지 프래그먼트로 변경
         }
         btnDel.setOnClickListener { // 프로필 삭제 버튼
-            bookDB = dbManager.writableDatabase // 데이터베이스 불러오기
-            bookDB.execSQL("DELETE FROM Profile WHERE PEmail = '$userEmail' AND PNum = num;") // 해당 프로필 데이터 삭제
+            // 정말 삭제할 것인지 확인하는 대화상자
+            var dlg = AlertDialog.Builder(fContext)
+            dlg.setMessage("$profileName 프로필을 정말 삭제하시겠습니까?")
+            dlg.setPositiveButton("삭제", DialogInterface.OnClickListener { dialogInterface, i ->
+                bookDB = dbManager.writableDatabase // 데이터베이스 불러오기
+                bookDB.execSQL("DELETE FROM Profile WHERE PEmail = '$userEmail' AND PNum = $profileNum;") // 해당 프로필 데이터 삭제
 
-            // 프로필 번호 당겨오기
-            if(profileNum + 1 < profileCount){
-                for(i in profileNum + 1  .. profileCount - 1){
-                    bookDB.execSQL("UPDATE Profile SET PNum = ${i - 1} WHERE PEmail = '$userEmail' AND PNum = $i ;")
+                // 프로필 번호 당겨오기
+                if(profileNum + 1 < profileCount){
+                    for(i in profileNum + 1  .. profileCount - 1){
+                        bookDB.execSQL("UPDATE Profile SET PNum = ${i - 1} WHERE PEmail = '$userEmail' AND PNum = $i ;")
+                    }
                 }
-            }
 
-            bookDB.execSQL("UPDATE Account SET ACurrentProfile = 0 WHERE AEmail = '$userEmail';") // 사용자가 사용하고 있는 프로필을 메인 프로필로 수정
+                var cursor : Cursor
+                cursor = bookDB.rawQuery("SELECT ACurrentProfile FROM Account WHERE AEmail = '$userEmail';", null)
+                if(cursor.moveToNext()){
+                    var currentPNum = cursor.getInt(0)
+                    if(currentPNum == profileNum){ // 삭제하는 프로필이 현재 사용하고 있는 프로필일 경우
+                        bookDB.execSQL("UPDATE Account SET ACurrentProfile = 0 WHERE AEmail = '$userEmail';") // 사용자가 사용하고 있는 프로필을 메인 프로필로 수정
+                    }
+                }
 
-            cursor.close()
-            bookDB.close()
+                cursor.close()
+                bookDB.close()
 
-            activity?.fragmentChangeInFragment(MyPageFragment.newInstance(userEmail)) // 마이페이지 프래그먼트로 변경
+                activity?.fragmentChangeInFragment(MyPageFragment.newInstance(userEmail)) // 마이페이지 프래그먼트로 변경
+            })
+
+            dlg.setNegativeButton("취소", null)
+            dlg.show()
+
         }
         btnOkay.setOnClickListener { // 수정 버튼
             var pName : String = edtName.text.toString()
@@ -161,18 +196,19 @@ class ChangeProfileFragment : Fragment() {
                 }
 
                 bookDB = dbManager.writableDatabase // 데이터베이스 불러오기
-                bookDB.execSQL("UPDATE Profile SET PEmail = '$pName', PImage = $pImage WHERE PEmail = '$userEmail' AND PNum = $profileNum ;") // 사용자가 프로필 데이터 수정
+                bookDB.execSQL("UPDATE Profile SET PName = '$pName', PImage = $pImage WHERE PEmail = '$userEmail' AND PNum = $profileNum ;") // 사용자가 프로필 데이터 수정
 
                 // 메인 프로필일 경우
                 if(profileNum == 0){
                     bookDB.execSQL("UPDATE Account SET APassword = '$pPassword' WHERE AEmail = '$userEmail';")
                 }
-            }
 
-            bookDB.close()
+                bookDB.close()
+                activity?.fragmentChangeInFragment(MyPageFragment.newInstance(userEmail)) // 마이페이지 프래그먼트로 변경
+            }
         }
         profileImage.setOnClickListener {
-            openGallery()
+            checkGalleryPermission() // 갤러리 접근
         }
 
         return view
@@ -193,6 +229,36 @@ class ChangeProfileFragment : Fragment() {
             val intent = result.data
             imageUri = intent!!.data
             profileImage.setImageURI(imageUri) // 프로필 이미지 설정
+        }
+    }
+
+    // 갤러리 접근 허가 함수
+    fun checkGalleryPermission(){
+        // sdk 버전에 따른 허가
+        val readImagePermission = if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU){
+            Manifest.permission.READ_MEDIA_IMAGES
+        }
+        else{
+            Manifest.permission.READ_EXTERNAL_STORAGE
+        }
+
+        // 권한 허가 여부
+        if(ContextCompat.checkSelfPermission(fContext, readImagePermission) != PackageManager.PERMISSION_GRANTED){
+            if(ActivityCompat.shouldShowRequestPermissionRationale(activity as Activity, readImagePermission)){ // 권한이 허가되지 않았을 경우
+                var dlg = AlertDialog.Builder(fContext)
+                dlg.setTitle("사용자의 사진에 접근하여 합니다.")
+                dlg.setMessage("프로필 사진을 위해 사진 라이브러리에 접근을 허용하시겠습니까?")
+                dlg.setPositiveButton("확인"){ dialog, which ->
+                    ActivityCompat.requestPermissions(activity as Activity, arrayOf(readImagePermission), 1000)
+                }
+                dlg.setNegativeButton("취소", null)
+                dlg.show()
+            }
+            else { // 권한 요청
+                ActivityCompat.requestPermissions(activity as Activity, arrayOf(readImagePermission), 1000)
+            }
+        } else { // 권한이 이미 허용된 경우
+            openGallery() // 갤러리 열기
         }
     }
 

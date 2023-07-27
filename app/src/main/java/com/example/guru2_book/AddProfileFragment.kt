@@ -1,11 +1,16 @@
 package com.example.guru2_book
 
+import android.Manifest
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.database.sqlite.SQLiteDatabase
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +19,11 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import androidx.core.content.PermissionChecker
 import de.hdodenhof.circleimageview.CircleImageView
 
 
@@ -57,6 +66,8 @@ class AddProfileFragment : Fragment() {
         arguments?.let {
             userEmail = it.getString("USEREMAIL") // 사용자 이메일 받기
             profileNum = it.getInt("PROFILENUM") // 프로필 번호 받기
+
+            userEmail?.let { it1 -> Log.d("11111", it1) }
         }
     }
 
@@ -91,13 +102,15 @@ class AddProfileFragment : Fragment() {
                 }
 
                 bookDB = dbManager.writableDatabase // 데이터베이스 불러오기
-                bookDB.execSQL("INSERT INTO Profile VALUES ('$userEmail', profileNum, '$pName', '$String', $pImage);")
-            }
+                bookDB.execSQL("INSERT INTO Profile VALUES ('$userEmail', $profileNum, '$pName', $pImage, 0);")
+                bookDB.execSQL("UPDATE Account SET ACurrentProfile = $profileNum WHERE AEmail = '$userEmail';")
+                bookDB.close()
 
-            bookDB.close()
+                activity?.fragmentChangeInFragment(MyPageFragment.newInstance(userEmail)) // 마이페이지 프래그먼트로 변경
+            }
         }
         profileImage.setOnClickListener {
-            openGallery()
+            checkGalleryPermission() // 갤러리 접근
         }
         return view
     }
@@ -119,6 +132,38 @@ class AddProfileFragment : Fragment() {
             profileImage.setImageURI(imageUri) // 프로필 이미지 설정
         }
     }
+
+    // 갤러리 접근 허가 함수
+    fun checkGalleryPermission(){
+        // sdk 버전에 따른 허가
+        val readImagePermission = if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU){
+            Manifest.permission.READ_MEDIA_IMAGES
+        }
+        else{
+            Manifest.permission.READ_EXTERNAL_STORAGE
+        }
+
+        // 권한 허가 여부
+        if(ContextCompat.checkSelfPermission(fContext, readImagePermission) != PackageManager.PERMISSION_GRANTED){
+            if(ActivityCompat.shouldShowRequestPermissionRationale(activity as Activity, readImagePermission)){ // 권한이 허가되지 않았을 경우
+                var dlg = AlertDialog.Builder(fContext)
+                dlg.setTitle("사용자의 사진에 접근하여 합니다.")
+                dlg.setMessage("프로필 사진을 위해 사진 라이브러리에 접근을 허용하시겠습니까?")
+                dlg.setPositiveButton("확인"){ dialog, which ->
+                    ActivityCompat.requestPermissions(activity as Activity, arrayOf(readImagePermission), 1000)
+                }
+                dlg.setNegativeButton("취소", null)
+                dlg.show()
+            }
+            else { // 권한 요청
+                ActivityCompat.requestPermissions(activity as Activity, arrayOf(readImagePermission), 1000)
+            }
+        } else { // 권한이 이미 허용된 경우
+            openGallery() // 갤러리 열기
+        }
+    }
+
+    // 권한 요청을 했을 경우
 
     companion object {
         @JvmStatic
