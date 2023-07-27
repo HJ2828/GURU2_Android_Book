@@ -3,25 +3,4 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".BookShelfFragment"
-    android:background="@drawable/background">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:orientation="horizontal"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="40dp"
-        android:gravity="center">
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="234dp"
-            android:layout_height="70dp"
-            android:layout_gravity="center_horizontal"
-            android:src="@drawable/bookshelf_tittle" />
-
-
-    </LinearLayout>
-
-</FrameLayout>
+    tools:context=".BookShelfFragment"/>

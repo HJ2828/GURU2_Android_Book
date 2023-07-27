@@ -4,14 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.example.guru2_book.BookAdapter
-import com.example.guru2_book.BookItem
-import kotlinx.coroutines.*
-
 
 
 /**
@@ -21,10 +14,7 @@ import kotlinx.coroutines.*
  */
 class BookSearchFragment : Fragment() {
 
-    private lateinit var recyclerViewBooks: RecyclerView
-    private lateinit var edtSearchBook: EditText
-    private lateinit var bookAdapter: BookAdapter
-    private var bookList = emptyList<BookItem>()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
