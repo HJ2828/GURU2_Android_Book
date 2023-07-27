@@ -8,9 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 
-class HomeFragment : Fragment() {
+class CharacterFragment : Fragment() {
 
-    lateinit var btnCharacter: ImageButton
+    lateinit var btnBack: ImageButton
 
     var mainActivity: MainActivity ?= null
 
@@ -35,12 +35,12 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_home, container, false)
+        val view = inflater.inflate(R.layout.fragment_character, container, false)
 
-        btnCharacter = view.findViewById(R.id.btnCharacter)
+        btnBack = view.findViewById(R.id.btnBack)
 
-        btnCharacter.setOnClickListener {
-            mainActivity?.changeHomeFragment(1)
+        btnBack.setOnClickListener {
+            mainActivity?.changeHomeFragment(2)
         }
 
         return view

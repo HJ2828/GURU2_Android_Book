@@ -43,6 +43,13 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    public fun changeHomeFragment(int: Int) {       // homeFragment와 characterFragment 간 이동
+        when(int) {
+            1 -> changeFragment(CharacterFragment())
+            2 -> changeFragment(HomeFragment())
+        }
+    }
+
     // 프래그먼트 이동 함수
     private fun changeFragment(fragment: Fragment) {
         supportFragmentManager
