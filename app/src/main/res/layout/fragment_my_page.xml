@@ -35,48 +35,121 @@
             android:gravity="center"
             android:orientation="horizontal">
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/profile00"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+            <LinearLayout
+                android:id="@+id/LinearProfile00"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
                 android:layout_margin="5dp"
-                android:src="@drawable/mypage_circle"
-                app:civ_border_color="@color/profile_outline"
-                app:civ_border_overlay="false"
-                app:civ_border_width="5dp" />
+                android:gravity="center">
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/profile00"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    app:civ_border_overlay="false"
+                    app:civ_border_width="5dp"
+                    app:civ_border_color="@color/profile_outline"
+                    android:src="@drawable/mypage_circle"/>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+                    <TextView
+                        android:id="@+id/textvView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:text="(메인)"
+                        android:layout_marginTop="5dp"/>
+                    <TextView
+                        android:id="@+id/nameText00"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:text="이름아아아아"
+                        android:layout_marginTop="5dp"/>
+                </LinearLayout>
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/profile01"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_margin="5dp"
-                android:src="@drawable/mypage_circle"
-                android:visibility="gone"
-                app:civ_border_color="@color/profile_hideline"
-                app:civ_border_overlay="false"
-                app:civ_border_width="5dp" />
+            </LinearLayout>
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/profile02"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+            <LinearLayout
+                android:id="@+id/LinearProfile01"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
                 android:layout_margin="5dp"
-                android:src="@drawable/mypage_circle"
-                android:visibility="gone"
-                app:civ_border_color="@color/profile_hideline"
-                app:civ_border_overlay="false"
-                app:civ_border_width="5dp" />
+                android:gravity="center"
+                android:visibility="gone">
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/profile01"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    app:civ_border_overlay="false"
+                    app:civ_border_width="5dp"
+                    app:civ_border_color="@color/profile_outline"
+                    android:src="@drawable/mypage_circle"/>
+                <TextView
+                    android:id="@+id/nameText01"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:text="이름아아아아"
+                    android:layout_marginTop="5dp"/>
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/profile03"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/LinearProfile02"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
                 android:layout_margin="5dp"
-                android:src="@drawable/mypage_circle"
-                android:visibility="gone"
-                app:civ_border_color="@color/profile_hideline"
-                app:civ_border_overlay="false"
-                app:civ_border_width="5dp" />
+                android:gravity="center"
+                android:visibility="gone">
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/profile02"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    app:civ_border_overlay="false"
+                    app:civ_border_width="5dp"
+                    app:civ_border_color="@color/profile_outline"
+                    android:src="@drawable/mypage_circle"/>
+                <TextView
+                    android:id="@+id/nameText02"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:text= "이름아아아아"
+                    android:layout_marginTop="5dp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/LinearProfile03"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_margin="5dp"
+                android:gravity="center"
+                android:visibility="gone">
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/profile03"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    app:civ_border_overlay="false"
+                    app:civ_border_width="5dp"
+                    app:civ_border_color="@color/profile_outline"
+                    android:src="@drawable/mypage_circle"/>
+                <TextView
+                    android:id="@+id/nameText03"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:text="이름아아아아"
+                    android:layout_marginTop="5dp"/>
+
+            </LinearLayout>
 
             <Button
                 android:id="@+id/btnAdd"
@@ -102,7 +175,8 @@
                 android:background="@drawable/mypage_btnlogout"
                 android:text="."
                 android:textColor="#00804B4B"
-                android:layout_marginBottom="45dp"/>
+                android:layout_marginBottom="45dp"
+                />
         </LinearLayout>
     </LinearLayout>
 </FrameLayout>

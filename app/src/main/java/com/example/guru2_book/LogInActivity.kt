@@ -61,6 +61,12 @@ class LogInActivity : AppCompatActivity() {
         cursor = bookDB.rawQuery("SELECT APassword FROM Account WHERE AEmail = '$email';", null)
 
         if (cursor.moveToNext() && (cursor.getString(0).toString().equals(password))){ // 계정이 존재하고 비밀번호가 올바른 경우
+
+            var pref = this.getSharedPreferences("Login_info", 0)
+            var editor = pref.edit()
+            editor.putString("UEMAIL", email)
+            editor.apply() // 로그인 상태를 저장
+
             // AEmail 가지고 메인 화면으로 이동
             val intent = Intent(this, MainActivity::class.java)
             intent.putExtra("USEREMAIL", email)
@@ -69,6 +75,7 @@ class LogInActivity : AppCompatActivity() {
             cursor.close()
             bookDB.close()
             dbManager.close()
+
             finish()
         } else { // 계정이 존재하지 않거나 비밀번호가 틀렸을 경우
             // 이메일 또는 비밀번호가 잘못되었다는 대화상자

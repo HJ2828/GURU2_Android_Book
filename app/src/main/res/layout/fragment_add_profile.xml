@@ -20,6 +20,7 @@
             android:layout_marginBottom="40dp"
             android:gravity="center">
             <Button
+                android:id="@+id/btnBack"
                 android:layout_width="34dp"
                 android:layout_height="30dp"
                 android:background="@drawable/add_changeprofile_btnback"
@@ -69,34 +70,10 @@
                         android:layout_gravity="center_horizontal"
                         android:background="@drawable/add_changeprofile_edittext"
                         android:ems="10"
-                        android:inputType="text" />
+                        android:inputType="text"
+                        android:maxLength="6"
+                        android:paddingHorizontal="10dp"/>
                 </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/linearAge"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="40dp"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:id="@+id/imageView4"
-                        android:layout_width="96dp"
-                        android:layout_height="20dp"
-                        android:layout_marginBottom="13dp"
-                        android:src="@drawable/add_changeprofile_age" />
-
-                    <EditText
-                        android:id="@+id/edtAge"
-                        android:layout_width="320dp"
-                        android:layout_height="41dp"
-                        android:layout_gravity="center_horizontal"
-                        android:background="@drawable/add_changeprofile_edittext"
-                        android:ems="10"
-                        android:inputType="number" />
-                </LinearLayout>
-
-
 
                 <LinearLayout
                     android:id="@+id/linearImage"
