@@ -201,7 +201,7 @@
                 android:progress="10"
                 android:max="20"
                 android:thumb="@drawable/asmr_seekbar_thumb"
-                android:progressDrawable="@drawable/asmr_seekbar" />
+                android:progressDrawable="@drawable/asmr_seekbar"/>
         </LinearLayout>
     </FrameLayout>
 
