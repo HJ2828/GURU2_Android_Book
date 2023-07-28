@@ -3,4 +3,119 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".BookShelfFragment"/>
+    tools:context=".BookShelfFragment">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="58dp"
+            android:src="@drawable/bookshelf_title"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="40dp"/>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center_horizontal">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="40dp"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="79dp"
+                        android:layout_height="21dp"
+                        android:layout_marginBottom="14dp"
+                        android:src="@drawable/bookshelf_want" />
+
+                    <HorizontalScrollView
+                        android:layout_width="360dp"
+                        android:layout_height="110dp"
+                        android:background="@drawable/bookshelf_book">
+
+                        <LinearLayout
+                            android:id="@+id/linearWant"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            android:paddingHorizontal="10dp">
+
+                        </LinearLayout>
+                    </HorizontalScrollView>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="40dp"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="97dp"
+                        android:layout_height="21dp"
+                        android:layout_marginBottom="14dp"
+                        android:src="@drawable/bookshelf_read" />
+
+                    <HorizontalScrollView
+                        android:layout_width="360dp"
+                        android:layout_height="110dp"
+                        android:background="@drawable/bookshelf_book">
+
+                        <LinearLayout
+                            android:id="@+id/linearRead"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingHorizontal="10dp">
+
+                        </LinearLayout>
+                    </HorizontalScrollView>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="40dp"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="117dp"
+                        android:layout_height="21dp"
+                        android:layout_marginBottom="14dp"
+                        android:src="@drawable/bookshelf_record" />
+
+                    <HorizontalScrollView
+                        android:layout_width="360dp"
+                        android:layout_height="110dp"
+                        android:background="@drawable/bookshelf_book">
+
+                        <LinearLayout
+                            android:id="@+id/linearRecord"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            android:paddingHorizontal="10dp">
+
+                        </LinearLayout>
+                    </HorizontalScrollView>
+
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+
+    </LinearLayout>
+</FrameLayout>

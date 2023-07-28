@@ -1,31 +1,53 @@
 package com.example.guru2_book
 
+import android.content.Context
+import android.database.sqlite.SQLiteDatabase
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.LinearLayout
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [BookShelfFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class BookShelfFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+
+    // 기본 정보 변수
+    private var userEmail : String? = null // 사용자 이메일
+    private var profileNum : Int = 0 // 사용자 프로필 번호
+
+    // activity, context 변수
+    var activity : MainActivity? = null
+    lateinit var fContext : Context
+
+    // 위젯 변수
+    lateinit var linearRead : LinearLayout
+    lateinit var linearWant : LinearLayout
+    lateinit var linearRecord : LinearLayout
+
+    // 데이터베이스 변수
+    lateinit var dbManager: DBManager
+    lateinit var bookDB : SQLiteDatabase
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        activity = getActivity() as MainActivity // MainActivity 가져오기
+        fContext = context // content 가져오기
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        activity = null // activity null로 설정
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+            userEmail = it.getString("USEREMAIL") // 사용자 이메일 받기
+            profileNum = it.getInt("PROFILENUM") // 프로필 번호 받기
         }
     }
 
@@ -33,26 +55,39 @@ class BookShelfFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_book_shelf, container, false)
+        val view = inflater.inflate(R.layout.fragment_book_shelf, container, false)
+
+        dbManager = DBManager(activity, "BookDB", null, 1) // SQLiteOpenHelper 객체 생성
+
+        // 위젯 연결
+        linearRead = view.findViewById<LinearLayout>(R.id.linearRead)
+        linearWant = view.findViewById<LinearLayout>(R.id.linearWant)
+        linearRecord = view.findViewById<LinearLayout>(R.id.linearRecord)
+
+
+
+        return view
+    }
+
+    // 책 표지 imageView 생성 함수
+    fun makeImageBook(){
+        var imageBook : ImageView = ImageView(fContext)// 책 표지 imageView
+        val layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, resources.getDimension(R.dimen.book_height).toInt()) // 크기 설정
+        // imageBook 속성 설정
+        imageBook.layoutParams = layoutParams
+        imageBook.scaleType = ImageView.ScaleType.FIT_START
+        imageBook.setImageResource(R.drawable.login_bg) // 임시
+        linearRead.addView(imageBook) // 임시
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment BookShelfFragment.
-         */
-        // TODO: Rename and change types and number of parameters
+
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
+        fun newInstance(email : String?, num : Int) =
             BookShelfFragment().apply {
                 arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+                    putString("USEREMAIL", email)
+                    putInt("PROFILENUM", num)
                 }
             }
     }
