@@ -25,7 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:src="@drawable/character_title"
-            android:gravity="center"/>
+            android:layout_gravity="center_horizontal"/>
 
     </FrameLayout>
 
@@ -33,209 +33,52 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:src="@drawable/character_explanation"
-        android:gravity="center"
+        android:layout_gravity="center_horizontal"
         android:layout_marginTop="10dp"/>
 
     <FrameLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/character_book">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginVertical="35dp"
-            android:layout_marginRight="30dp">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginLeft="140dp"
-                android:layout_marginRight="24dp"
-                android:text="0"
-                android:textColor="#6D422F"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:textAlignment="center"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginLeft="130dp"
-                android:layout_marginRight="24dp"
-                android:text="0"
-                android:textColor="#6D422F"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:textAlignment="center"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginTop="80dp"
             android:layout_marginRight="30dp">
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/textCharacterCount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center">
+                android:layout_marginTop="35dp"
+                android:layout_marginLeft="140dp"
+                android:layout_marginBottom="10dp"
+                android:text="0"
+                android:textColor="#6D422F"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textAlignment="textStart"/>
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/character_egg_shadow"
-                    android:layout_marginHorizontal="10dp"
-                    android:layout_marginVertical="5dp"/>
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/character_bab_shadow"
-                    android:layout_marginHorizontal="10dp"/>
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/character_rabbit_shadow"
-                    android:layout_marginHorizontal="10dp"/>
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/character_polarbear_shadow"
-                    android:layout_marginHorizontal="10dp"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/character_egg_shadow"
-                    android:layout_marginHorizontal="10dp"
-                    android:layout_marginVertical="5dp"/>
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/character_bab_shadow"
-                    android:layout_marginHorizontal="10dp"/>
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/character_rabbit_shadow"
-                    android:layout_marginHorizontal="10dp"/>
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/character_polarbear_shadow"
-                    android:layout_marginHorizontal="10dp"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/character_chick_shadow"
-                    android:layout_marginHorizontal="10dp"
-                    android:layout_marginVertical="5dp"/>
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/character_bab_shadow"
-                    android:layout_marginHorizontal="10dp"/>
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/character_rabbit_shadow"
-                    android:layout_marginHorizontal="10dp"/>
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/character_polarbear_shadow"
-                    android:layout_marginHorizontal="10dp"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/character_chick_shadow"
-                    android:layout_marginHorizontal="10dp"
-                    android:layout_marginVertical="5dp"/>
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/character_bab_shadow"
-                    android:layout_marginHorizontal="10dp"/>
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/character_rabbit_shadow"
-                    android:layout_marginHorizontal="10dp"/>
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/character_polarbear_shadow"
-                    android:layout_marginHorizontal="10dp"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
+            <GridView
+                android:id="@+id/gridViewCharacter"
+                android:layout_width="wrap_content"
+                android:layout_height="300dp"
                 android:gravity="center"
-                android:layout_marginTop="30dp">
+                android:layout_marginHorizontal="30dp"
+                android:numColumns="4"/>
 
-                <ImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="50dp"
-                    android:background="#00000000"
-                    android:src="@drawable/character_btnequip"/>
+            <ImageButton
+                android:id="@+id/btnEquip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#00000000"
+                android:src="@drawable/character_btnequip"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="30dp"/>
 
-                <ImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="50dp"
-                    android:background="#00000000"
-                    android:src="@drawable/character_btnobtain"/>
-
-            </LinearLayout>
         </LinearLayout>
+
     </FrameLayout>
 
 </LinearLayout>
