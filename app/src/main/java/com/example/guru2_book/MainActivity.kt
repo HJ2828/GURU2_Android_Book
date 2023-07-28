@@ -49,13 +49,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    public fun changeHomeFragment(int: Int) {       // homeFragment와 characterFragment 간 이동
-        when(int) {
-            1 -> changeFragment(CharacterFragment())
-            2 -> changeFragment(HomeFragment())
-        }
-    }
-
     // 프래그먼트에서 다른 프래그먼트로 이동하는 함수
     public fun fragmentChangeInFragment(goFragment : Fragment){ // 매개변수에 프래그넌트 넣으면 이동합니다.
         changeFragment(goFragment)

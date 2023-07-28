@@ -12,16 +12,19 @@ class CharacterFragment : Fragment() {
 
     lateinit var btnBack: ImageButton
 
-    var mainActivity: MainActivity ?= null
+    // activity, context 변수
+    var activity : MainActivity? = null
+    lateinit var fContext : Context
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        mainActivity = context as MainActivity
+        activity = getActivity() as MainActivity // MainActivity 가져오기
+        fContext = context // content 가져오기
     }
 
     override fun onDetach() {
         super.onDetach()
-        mainActivity = null
+        activity = null // activity null로 설정
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,10 +40,12 @@ class CharacterFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_character, container, false)
 
+        // 위젯 연결
         btnBack = view.findViewById(R.id.btnBack)
 
-        btnBack.setOnClickListener {
-            mainActivity?.changeHomeFragment(2)
+        // 리스너 연결
+        btnBack.setOnClickListener { // 뒤로가기 버튼
+            activity?.fragmentChangeInFragment(HomeFragment()) // 홈 프래그먼트로 변경
         }
 
         return view

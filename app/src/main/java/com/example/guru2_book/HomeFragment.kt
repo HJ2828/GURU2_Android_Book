@@ -10,18 +10,22 @@ import android.widget.ImageButton
 
 class HomeFragment : Fragment() {
 
+    // 위젯 변수
     lateinit var btnCharacter: ImageButton
 
-    var mainActivity: MainActivity ?= null
+    // activity, context 변수
+    var activity : MainActivity? = null
+    lateinit var fContext : Context
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        mainActivity = context as MainActivity
+        activity = getActivity() as MainActivity // MainActivity 가져오기
+        fContext = context // content 가져오기
     }
 
     override fun onDetach() {
         super.onDetach()
-        mainActivity = null
+        activity = null // activity null로 설정
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,10 +41,12 @@ class HomeFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
 
+        // 위젯 연결
         btnCharacter = view.findViewById(R.id.btnCharacter)
 
-        btnCharacter.setOnClickListener {
-            mainActivity?.changeHomeFragment(1)
+        // 리스너 연결
+        btnCharacter.setOnClickListener { // 뒤로가기 버튼
+            activity?.fragmentChangeInFragment(CharacterFragment()) // 캐릭터 도감 프래그먼트로 변경
         }
 
         return view
