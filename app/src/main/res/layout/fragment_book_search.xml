@@ -1,7 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddProfileFragment"/>
+    android:background="@drawable/background"
+    android:orientation="vertical"
+    tools:context=".BookSearchFragment">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/booksearch_title"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_gravity="center_horizontal" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal">
+
+        <EditText
+            android:id="@+id/edtSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/booksearch_bar"
+            android:layout_marginRight="3dp"
+            android:paddingLeft="10dp"
+            android:hint="도서명, 저자 또는 출판사를 검색하세요"
+            android:textColorHint="#959595"
+            android:textSize="15sp"
+            android:textStyle="bold"/>
+
+        <ImageButton
+            android:id="@+id/btnSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#00000000"
+            android:src="@drawable/booksearch_btn"
+            android:layout_marginLeft="3dp"/>
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imgViexText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/booksearch_searchextext"
+        android:gravity="left"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="5dp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewBook"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:visibility="visible" />
+
+</LinearLayout>
