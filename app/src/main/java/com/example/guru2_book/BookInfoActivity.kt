@@ -81,12 +81,4 @@ class BookInfoActivity : AppCompatActivity() {
 
         }
     }
-
-    fun formatDate(dateStr: String): String {
-        val year = dateStr.substring(0, 4)
-        val month = dateStr.substring(4, 6)
-        val day = dateStr.substring(6, 8)
-
-        return "${year}년 ${month}월 ${day}일"
-    }
 }
