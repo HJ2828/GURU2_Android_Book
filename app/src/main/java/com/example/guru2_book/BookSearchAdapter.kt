@@ -1,10 +1,12 @@
 package com.example.guru2_book
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
@@ -18,6 +20,17 @@ class BookSearchAdapter(private var bookList: List<NaverBookItem>) : RecyclerVie
     override fun onBindViewHolder(holder: BookViewHolder, position: Int) {
         val book = bookList[position]       // position번째 리스트 정보를 book 변수에 전달
         holder.bind(book)       // 리사이큘러뷰에 출력하기 위한 함수 호출
+
+        holder.itemView.setOnClickListener {    // 아이템 클릭 이벤트
+            val intent = Intent(holder.itemView.context, BookInfoActivity::class.java)
+            intent.putExtra("bookTitle", bookList[position].title)
+            intent.putExtra("bookAuthor", bookList[position].author)
+            intent.putExtra("bookPublisher", bookList[position].publisher)
+            intent.putExtra("bookPubDate", holder.formatDate(bookList[position].pubdate))
+            intent.putExtra("bookImgUrl", bookList[position].image)
+            intent.putExtra("bookStory", bookList[position].description)
+            ContextCompat.startActivity(holder.itemView.context, intent, null)
+        }
     }
 
     override fun getItemCount(): Int = bookList.size

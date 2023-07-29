@@ -27,7 +27,7 @@ class HomeFragment : Fragment() {
     lateinit var textGoal: TextView     // 목표 텍스트뷰
     lateinit var imgCharacter: ImageView     // 캐릭터 이미지뷰
     lateinit var btnCharacter: ImageButton  // 캐릭터 도감 보기 버튼
-    lateinit var textRead: TextView     // 읽은 책 수 텍스트
+    lateinit var textRead: TextView     // 읽은 책 수 텍스트뷰
     lateinit var textDibs: TextView     // 찜한 책 수 텍스트뷰
 
     // 캐릭터 이미지 변수

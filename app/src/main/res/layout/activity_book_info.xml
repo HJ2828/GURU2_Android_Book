@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    tools:context=".BookInfoActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginBottom="100dp">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+
+            <ImageButton
+                android:id="@+id/btnBackBook"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#00000000"
+                android:src="@drawable/bookinfo_btnback"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="10dp"/>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/bookinfo_title"
+                android:layout_gravity="center_horizontal"/>
+
+            <ImageButton
+                android:id="@+id/btnDibs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#00000000"
+                android:src="@drawable/bookinfo_btnnotdibs"
+                android:layout_gravity="right"
+                android:layout_marginRight="10dp"/>
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:background="@drawable/bookinfo_bookbackground"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginHorizontal="20dp">
+
+            <ImageView
+                android:id="@+id/imgBook"
+                android:layout_width="160dp"
+                android:layout_height="160dp"
+                android:src="@drawable/bookinfo_bookimg"
+                android:layout_gravity="center"/>
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/textTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:text="제목 최대 3줄까지"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:maxLines="3"
+            android:ellipsize="end"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginVertical="1dp"
+            android:layout_marginHorizontal="20dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/bookinfo_author"
+                android:layout_marginRight="10dp"/>
+
+            <TextView
+                android:id="@+id/textAuthor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:text="저자 이름"
+                android:textSize="16sp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginVertical="1dp"
+            android:layout_marginHorizontal="20dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/bookinfo_publisher"
+                android:layout_marginRight="10dp"/>
+
+            <TextView
+                android:id="@+id/textPublisher"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:text="출판사 이름"
+                android:textSize="16sp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginVertical="1dp"
+            android:layout_marginHorizontal="20dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/bookinfo_pubdate"
+                android:layout_marginRight="10dp"/>
+
+            <TextView
+                android:id="@+id/textPubDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:text="2023년 7월 29일"
+                android:textSize="16sp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bookinfo_storybackground"
+            android:orientation="vertical"
+            android:layout_marginVertical="1dp"
+            android:layout_marginHorizontal="20dp"
+            android:padding="10dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/bookinfo_story"/>
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/textStory"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="5dp"
+                    android:text="줄거리 내용"
+                    android:textSize="16sp"/>
+
+            </ScrollView>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="20dp"
+        android:layout_marginHorizontal="30dp">
+
+        <ImageButton
+            android:id="@+id/btnFinish"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#00000000"
+            android:src="@drawable/bookinfo_btnnotfinish"/>
+
+        <ImageButton
+            android:id="@+id/btnWrite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#00000000"
+            android:src="@drawable/bookinfo_btnwrite"/>
+
+        <ImageButton
+            android:id="@+id/btnRead"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#00000000"
+            android:src="@drawable/bookinfo_btnread"/>
+
+    </LinearLayout>
+
+</RelativeLayout>
