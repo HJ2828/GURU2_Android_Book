@@ -95,6 +95,7 @@
                     android:gravity="center"
                     android:maxLines="2"
                     android:text="책 제목"
+                    android:textColor="@color/black"
                     android:textSize="17sp" />
             </LinearLayout>
 
@@ -111,10 +112,11 @@
                     style="@style/Widget.AppCompat.RatingBar.Indicator"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:rating="0"
+                    android:isIndicator="false"
                     android:numStars="5"
-                    android:stepSize="0.5"
-                    android:isIndicator="false"/>
+                    android:progressTint="#E8D000"
+                    android:rating="0"
+                    android:stepSize="0.5" />
             </LinearLayout>
 
             <LinearLayout
@@ -145,8 +147,10 @@
                             android:enabled="false"
                             android:hint="독후감을 작성해보세요.(최대 3000자)"
                             android:inputType="textMultiLine"
+                            android:lines="14"
                             android:maxLength="3000"
                             android:scrollHorizontally="true"
+                            android:textColor="@color/black"
                             android:textSize="15sp" />
 
                     </LinearLayout>

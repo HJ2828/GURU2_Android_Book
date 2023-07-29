@@ -38,7 +38,6 @@ class RecordActivity : AppCompatActivity() {
     lateinit var btnEdit : Button // 수정 버튼
     lateinit var btnDel : Button // 삭제 버튼
     lateinit var btnOkay : Button // 작성 완료 버튼
-    lateinit var scrollRecord : ScrollView // 독후감 스크롤 뷰
 
     // 데이터베이스 변수
     lateinit var dbManager: DBManager
@@ -62,7 +61,6 @@ class RecordActivity : AppCompatActivity() {
         btnEdit = findViewById<Button>(R.id.btnEdit)
         btnDel= findViewById<Button>(R.id.btnDel)
         btnOkay = findViewById<Button>(R.id.btnOkay)
-        scrollRecord = findViewById<ScrollView>(R.id.scrollRecord)
 
         // intent를 받아 현재 버전, 기본 정보 변수 초기화
         userEmail = intent.getStringExtra("USEREMAIL").toString()
@@ -136,9 +134,9 @@ class RecordActivity : AppCompatActivity() {
                 var date : Long = SimpleDateFormat("yyyyMMddHHmmss").format(System.currentTimeMillis()).toLong()
 
                 if(bookRecord.trim().isEmpty()){ // 별점만 입력했을 경우
-                    bookDB.execSQL("UPDATE Read SET RReport = NULL, RRating = $bRating, RReportDate = date WHERE RISBN = '$bookISBN' AND REmail = '$userEmail' AND RNum = $profileNum;")
+                    bookDB.execSQL("UPDATE Read SET RReport = NULL, RRating = $bRating, RReportDate = $date WHERE RISBN = '$bookISBN' AND REmail = '$userEmail' AND RNum = $profileNum;")
                 } else{
-                    bookDB.execSQL("UPDATE Read SET RReport = '$bookRecord', RRating = $bRating, RReportDate = date WHERE RISBN = '$bookISBN' AND REmail = '$userEmail' AND RNum = $profileNum;")
+                    bookDB.execSQL("UPDATE Read SET RReport = '$bookRecord', RRating = $bRating, RReportDate = $date WHERE RISBN = '$bookISBN' AND REmail = '$userEmail' AND RNum = $profileNum;")
                 }
 
                 bookDB.close()
@@ -146,11 +144,6 @@ class RecordActivity : AppCompatActivity() {
                 changeIntoLook()
             }
         }
-
-        scrollRecord.setOnClickListener {
-            edtRecord.callOnClick()
-        }
-
     }
 
     // 현재 버전에 알맞은 화면 활성화
