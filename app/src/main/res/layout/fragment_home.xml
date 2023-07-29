@@ -54,7 +54,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/home_egg_shadow"
-                android:layout_marginVertical="100dp"/>
+                android:layout_marginTop="100dp"
+                android:layout_marginBottom="50dp"/>
 
             <ImageButton
                 android:id="@+id/btnCharacter"

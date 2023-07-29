@@ -13,6 +13,7 @@ class DBManager(
 ) : SQLiteOpenHelper(context, name, factory, version) {
     override fun onCreate(p0: SQLiteDatabase?) {
         // 책 테이블
+        // 책 테이블
         p0!!.execSQL("CREATE TABLE Book (ISBN INTEGER NOT NULL, BName text, BWriter text, BPublisher text, Bimage text, BDescription text, BPubdate DATETIME, PRIMARY KEY(ISBN));")
         // 목표 테이블
         p0!!.execSQL("CREATE TABLE Goal (GNum INTEGER NOT NULL, GCount INTEGER, GCharacter text, PRIMARY KEY(GNum));")
@@ -38,11 +39,11 @@ class DBManager(
         // 계정 테이블
         p0!!.execSQL("CREATE TABLE Account (AEmail text NOT NULL, APassword text, ACurrentProfile INTEGER, PRIMARY KEY(AEmail));")
         // 읽은 책 테이블
-        p0!!.execSQL("CREATE TABLE Read (RISBN INTEGER NOT NULL, REmail text NOT NULL, RReport text, RRating REAL, PRIMARY KEY(RISBN, REmail), FOREIGN KEY(RISBN) REFERENCES Book(ISBN), FOREIGN KEY(REmail) REFERENCES Profile(PEmail));")
+        p0!!.execSQL("CREATE TABLE Read (RISBN INTEGER NOT NULL, REmail text NOT NULL, RNum INTEGER NOT NULL, RReadDate INTEGER, RReportDate INTEGER, RReport text DEFAULT NULL, RRating REAL DEFAULT NULL, PRIMARY KEY(RISBN, REmail, RNum), FOREIGN KEY(RISBN) REFERENCES Book(ISBN), FOREIGN KEY(REmail) REFERENCES Profile(PEmail), FOREIGN KEY(RNum) REFERENCES Profile(PNum));")
         // 찜한 책 테이블
-        p0!!.execSQL("CREATE TABLE Want (WISBN INTEGER NOT NULL, WEmail text NOT NULL, PRIMARY KEY(WISBN, WEmail), FOREIGN KEY(WISBN) REFERENCES Book(ISBN), FOREIGN KEY(WEmail) REFERENCES Profile(PEmail));")
+        p0!!.execSQL("CREATE TABLE Want (WISBN INTEGER NOT NULL, WEmail text NOT NULL, WNum INTEGER NOT NULL, WWantDate INTEGER, PRIMARY KEY(WISBN, WEmail, WNum), FOREIGN KEY(WISBN) REFERENCES Book(ISBN), FOREIGN KEY(WEmail) REFERENCES Profile(PEmail), FOREIGN KEY(WNum) REFERENCES Profile(PNum));")
         // 프로필 테이블
-        p0!!.execSQL("CREATE TABLE Profile (PEmail text NOT NULL, PNum INTEGER NOT NULL, PName text, PImage text DEFAULT NULL, GoalNum INTEGER DEFAULT 0, PRIMARY KEY(PEmail, PNum), FOREIGN KEY(PEmail) REFERENCES Account(AEmail),FOREIGN KEY(GoalNum) REFERENCES Goal(GNum) ON DELETE SET NULL);")
+        p0!!.execSQL("CREATE TABLE Profile (PEmail text NOT NULL, PNum INTEGER NOT NULL, PName text, PImage text DEFAULT NULL, GoalNum INTEGER DEFAULT 0, PMainImgNum INTEGER DEFAULT -1, PRIMARY KEY(PEmail, PNum), FOREIGN KEY(PEmail) REFERENCES Account(AEmail),FOREIGN KEY(GoalNum) REFERENCES Goal(GNum) ON DELETE SET NULL);")
     }
 
     override fun onUpgrade(p0: SQLiteDatabase?, p1: Int, p2: Int) {

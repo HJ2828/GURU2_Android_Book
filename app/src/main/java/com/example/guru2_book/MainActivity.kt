@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
                         changeFragment(BookSearchFragment())
                     }
                     R.id.home -> {      // 캐릭터(홈)
-                        changeFragment(HomeFragment())
+                        changeFragment(HomeFragment.newInstance(userEmail))
                     }
                     R.id.shelf -> {     // 책장
                         changeFragment(BookShelfFragment())

@@ -102,7 +102,7 @@ class AddProfileFragment : Fragment() {
                 }
 
                 bookDB = dbManager.writableDatabase // 데이터베이스 불러오기
-                bookDB.execSQL("INSERT INTO Profile VALUES ('$userEmail', $profileNum, '$pName', $pImage, 0);")
+                bookDB.execSQL("INSERT INTO Profile VALUES ('$userEmail', $profileNum, '$pName', $pImage, 0, 0);")
                 bookDB.execSQL("UPDATE Account SET ACurrentProfile = $profileNum WHERE AEmail = '$userEmail';")
                 bookDB.close()
 
