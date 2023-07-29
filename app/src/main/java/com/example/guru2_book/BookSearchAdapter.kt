@@ -10,7 +10,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
-class BookSearchAdapter(private var bookList: List<NaverBookItem>) : RecyclerView.Adapter<BookSearchAdapter.BookViewHolder>() {
+class BookSearchAdapter(private var bookList: List<NaverBookItem>, private var userEmail : String?) : RecyclerView.Adapter<BookSearchAdapter.BookViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_book, parent, false)
@@ -29,6 +29,8 @@ class BookSearchAdapter(private var bookList: List<NaverBookItem>) : RecyclerVie
             intent.putExtra("bookPubDate", holder.formatDate(bookList[position].pubdate))
             intent.putExtra("bookImgUrl", bookList[position].image)
             intent.putExtra("bookStory", bookList[position].description)
+            intent.putExtra("bookISBN", bookList[position].isbn)
+            intent.putExtra("USEREMAIL", userEmail)
             ContextCompat.startActivity(holder.itemView.context, intent, null)
         }
     }

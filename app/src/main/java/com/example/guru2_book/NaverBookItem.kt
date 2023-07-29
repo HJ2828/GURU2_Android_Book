@@ -6,6 +6,6 @@ data class NaverBookItem(
     val publisher: String,          // 츨판사
     val pubdate: String,            // 출간일
     val image: String,              // 섬네일 이미지 URL
-    val description: String         // 책 소개
-    // ISBN
+    val description: String,         // 책 소개
+    val isbn: String   // ISBN
 )

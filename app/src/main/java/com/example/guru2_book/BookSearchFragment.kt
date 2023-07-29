@@ -38,10 +38,13 @@ class BookSearchFragment : Fragment() {
     // 받아온 정보 저장할 리스트 변수
     val bookList: MutableList<NaverBookItem> = mutableListOf()
 
+    // 기본 정보 변수
+    private var userEmail : String? = null // 사용자 이메일
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-
+            userEmail = it.getString("USEREMAIL") // 사용자 이메일 받기
         }
     }
 
@@ -58,7 +61,7 @@ class BookSearchFragment : Fragment() {
         recyclerViewBook = view.findViewById<RecyclerView>(R.id.recyclerViewBook)
 
         // RecyclerView 어댑터 생성 및 설정
-        bookAdapter = BookSearchAdapter(emptyList())
+        bookAdapter = BookSearchAdapter(emptyList(), userEmail)
         recyclerViewBook.layoutManager = LinearLayoutManager(context)      //LinearLayoutManager: 아이템들을 수직 방향으로 나열
         recyclerViewBook.adapter = bookAdapter
         recyclerViewBook.setHasFixedSize(true)      // setHasFixedSize(true): 리사이클러뷰 크기 고정
@@ -115,5 +118,16 @@ class BookSearchFragment : Fragment() {
                 println("API call failed: ${t.message}")
             }
         })
+    }
+
+    companion object {
+
+        @JvmStatic
+        fun newInstance(email : String?) =
+            BookSearchFragment().apply {
+                arguments = Bundle().apply {
+                    putString("USEREMAIL", email)
+                }
+            }
     }
 }

@@ -113,7 +113,8 @@
                     android:layout_height="wrap_content"
                     android:rating="0"
                     android:numStars="5"
-                    android:stepSize="0.5" />
+                    android:stepSize="0.5"
+                    android:isIndicator="false"/>
             </LinearLayout>
 
             <LinearLayout
@@ -124,6 +125,7 @@
                 android:background="@drawable/record_layout">
 
                 <ScrollView
+                    android:id="@+id/scrollRecord"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginHorizontal="18dp"
@@ -142,9 +144,10 @@
                             android:background="@android:color/transparent"
                             android:enabled="false"
                             android:hint="독후감을 작성해보세요.(최대 3000자)"
-                            android:inputType="text"
-                            android:textSize="15sp"
-                            android:maxLength="3000"/>
+                            android:inputType="textMultiLine"
+                            android:maxLength="3000"
+                            android:scrollHorizontally="true"
+                            android:textSize="15sp" />
 
                     </LinearLayout>
                 </ScrollView>

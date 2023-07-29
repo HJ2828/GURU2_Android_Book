@@ -25,6 +25,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.bumptech.glide.Glide
 import de.hdodenhof.circleimageview.CircleImageView
 
 
@@ -228,7 +229,7 @@ class ChangeProfileFragment : Fragment() {
         if (result.resultCode == AppCompatActivity.RESULT_OK) { // 이미지를 제대로 가져올 경우
             val intent = result.data
             imageUri = intent!!.data
-            profileImage.setImageURI(imageUri) // 프로필 이미지 설정
+            getActivity()?.let { Glide.with(it).load(imageUri).into(profileImage) } // 프로필 이미지 설정
         }
     }
 

@@ -13,6 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
+import com.bumptech.glide.Glide
 
 
 class BookShelfFragment : Fragment() {
@@ -50,7 +51,6 @@ class BookShelfFragment : Fragment() {
         super.onCreate(savedInstanceState)
         arguments?.let {
             userEmail = it.getString("USEREMAIL") // 사용자 이메일 받기
-            profileNum = it.getInt("PROFILENUM") // 프로필 번호 받기
         }
     }
 
@@ -61,6 +61,17 @@ class BookShelfFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_book_shelf, container, false)
 
         dbManager = DBManager(activity, "BookDB", null, 1) // SQLiteOpenHelper 객체 생성
+
+        // 프로필 번호 가져오기
+        bookDB = dbManager.readableDatabase
+        var cursor : Cursor
+        cursor = bookDB.rawQuery("SELECT ACurrentProfile FROM Account WHERE AEmail = '$userEmail';", null)
+        if(cursor.moveToNext()){
+            profileNum = cursor.getInt(0)
+        }
+
+        cursor.close()
+        bookDB.close()
 
         // 위젯 연결
         linearRead = view.findViewById<LinearLayout>(R.id.linearRead)
@@ -76,8 +87,6 @@ class BookShelfFragment : Fragment() {
 
     // 읽은 책 리스트를 가져옴
     fun getReadBooks(){
-
-        var rISBNArrayList : ArrayList<Int> = ArrayList<Int>() // isbn 리스트
         bookDB = dbManager.readableDatabase
 
         // 읽은 책 리스트를 읽은 날짜 순으로 가져오기
@@ -85,8 +94,7 @@ class BookShelfFragment : Fragment() {
         cursor = bookDB.rawQuery("SELECT ISBN, Bimage, RReadDate FROM Read R, Book B WHERE R.RISBN = B.ISBN AND R.REmail = '$userEmail' AND R.RNum = $profileNum ORDER BY R.RReadDate ASC;);", null)
 
         while(cursor.moveToNext()){
-            var isbn : Int = cursor.getInt(0)
-            rISBNArrayList.add(isbn)
+            var isbn : String = cursor.getString(0)
             var uri : Uri = Uri.parse(cursor.getString(1).toString())
 
             makeImageBook(isbn, linearRead, uri) // 책 ISBN과 이미지 uri을 넘겨 이미지뷰 생성
@@ -105,7 +113,7 @@ class BookShelfFragment : Fragment() {
         cursor = bookDB.rawQuery("SELECT ISBN, Bimage, WWantDate FROM Want W, Book B WHERE W.WISBN = B.ISBN AND W.WEmail = '$userEmail' AND W.WNum = $profileNum ORDER BY W.WWantDate ASC;", null)
 
         while(cursor.moveToNext()){
-            var isbn : Int = cursor.getInt(0)
+            var isbn : String = cursor.getString(0)
             var uri : Uri = Uri.parse(cursor.getString(1).toString())
 
             makeImageBook(isbn, linearWant, uri) // 책 ISBN과 이미지 uri을 넘겨 이미지뷰 생성
@@ -122,10 +130,10 @@ class BookShelfFragment : Fragment() {
         // 독후감을 작성한 책 리스트를 작성한 날짜 순으로 가져오기
         var cursor : Cursor
         cursor = bookDB.rawQuery(
-            "SELECT ISBN, Bimage, RReportDate FROM Read R, Book B WHERE (R.RISBN = B.ISBN AND R.REmail = '$userEmail' AND R.RNum = $profileNum) AND (R.RReport IS NOT NULL || R.RRating IS NOT NULL) ORDER BY R.RReportDate ASC;", null)
+            "SELECT ISBN, Bimage, RReportDate FROM Read R, Book B WHERE (R.RISBN = B.ISBN AND R.REmail = '$userEmail' AND R.RNum = $profileNum) AND (R.RReport IS NOT NULL || R.RRating != 0) ORDER BY R.RReportDate ASC;", null)
 
         while(cursor.moveToNext()){
-            var isbn : Int = cursor.getInt(0)
+            var isbn : String = cursor.getString(0)
             var uri : Uri = Uri.parse(cursor.getString(1).toString())
 
             makeImageBook(isbn, linearRecord, uri) // 책 ISBN과 이미지 uri을 넘겨 이미지뷰 생성
@@ -136,12 +144,12 @@ class BookShelfFragment : Fragment() {
     }
 
     // 책 표지 imageView 생성 함수
-    fun makeImageBook(isbn : Int, layout: LinearLayout, uri : Uri){
+    fun makeImageBook(isbn : String, layout: LinearLayout, uri : Uri){
         var imageBook : ImageView = ImageView(fContext)// 책 표지 imageView
-        val layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, resources.getDimension(R.dimen.book_height) as Int) // 크기 설정
+        val layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, resources.getDimension(R.dimen.book_height).toInt()) // 크기 설정
         imageBook.layoutParams = layoutParams
         imageBook.scaleType = ImageView.ScaleType.FIT_START
-        imageBook.setImageURI(uri)
+        getActivity()?.let { Glide.with(it).load(uri).into(imageBook) }
         when(layout.id){
             R.id.linearRead, R.id.linearWant -> {
                 goBookInfo(imageBook, isbn, userEmail, profileNum)
@@ -155,32 +163,36 @@ class BookShelfFragment : Fragment() {
     }
 
     // 책 표지 클릭 시 책 정보로 이동
-    fun goBookInfo(imageBook : ImageView, isbn: Int, email: String?, pNum : Int){
+    fun goBookInfo(imageBook : ImageView, isbn: String, email: String?, pNum : Int){
         imageBook.setOnClickListener { // 리스너 연결
-            //activity?.fragmentChangeInFragment(BookInfoFragment.newInstance(isbn, email, pNum)) // 책 정보 프래그넌트로 이동
+            val intent = Intent(fContext, BookInfoActivity::class.java)
+            intent.putExtra("BOOKISBN", isbn)
+            intent.putExtra("USEREMAIL", email)
+            intent.putExtra("FROMSHELF", true)
+            startActivity(intent)
+            activity?.finish()
         }
     }
 
     // 책 표시 클릭 시 독후감 보기로 이동
-    fun goRecord(imageBook : ImageView, isbn: Int, email: String?, pNum : Int){
-        /*imageBook.setOnClickListener { // 리스너 연결
+    fun goRecord(imageBook : ImageView, isbn: String, email: String?, pNum : Int){
+        imageBook.setOnClickListener { // 리스너 연결
             val intent = Intent(fContext, RecordActivity::class.java)
             intent.putExtra("BOOKISBN", isbn)
             intent.putExtra("USEREMAIL", email)
             intent.putExtra("PROFILENUM", pNum)
             intent.putExtra("ISLOOKING", true)
             startActivity(intent)
-        }*/
+        }
     }
 
     companion object {
 
         @JvmStatic
-        fun newInstance(email : String?, num : Int) =
+        fun newInstance(email : String?) =
             BookShelfFragment().apply {
                 arguments = Bundle().apply {
                     putString("USEREMAIL", email)
-                    putInt("PROFILENUM", num)
                 }
             }
     }

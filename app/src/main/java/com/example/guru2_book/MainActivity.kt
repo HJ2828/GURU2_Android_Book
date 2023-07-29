@@ -12,11 +12,15 @@ class MainActivity : AppCompatActivity() {
     // 기본 정보 변수
     private var userEmail : String? = null // 사용자 이메일
 
+    // 기타 변수
+    var fromShelf : Boolean = false // 책장에서 넘어옴
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         userEmail = intent.getStringExtra("USEREMAIL").toString()
+        fromShelf = intent.getBooleanExtra("FROMSHELF", false)
 
         // 바텀 네비게이션 이동 구현
         var bottomNav = findViewById<BottomNavigationView>(R.id.bottomNav)
@@ -31,13 +35,13 @@ class MainActivity : AppCompatActivity() {
                         changeFragment(AsmrFragment())
                     }
                     R.id.search -> {    // 책 검색
-                        changeFragment(BookSearchFragment())
+                        changeFragment(BookSearchFragment.newInstance(userEmail))
                     }
                     R.id.home -> {      // 캐릭터(홈)
                         changeFragment(HomeFragment.newInstance(userEmail))
                     }
                     R.id.shelf -> {     // 책장
-                        changeFragment(BookShelfFragment())
+                        changeFragment(BookShelfFragment.newInstance(userEmail))
                     }
                     R.id.mypage -> {    // 마이페이지
                         changeFragment(MyPageFragment.newInstance(userEmail))
@@ -45,7 +49,11 @@ class MainActivity : AppCompatActivity() {
                 }
                 true
             }
-            selectedItemId = R.id.home      // 기본 선택: 캐릭터(홈)
+            if(!fromShelf){ // 책장에서 넘어오지 않았을 경우
+                selectedItemId = R.id.home      // 기본 선택: 캐릭터(홈)
+            } else { // 책장에서 넘어왔을 경우
+                selectedItemId = R.id.shelf      // 기본 선택: 캐릭터(홈)
+            }
         }
     }
 
