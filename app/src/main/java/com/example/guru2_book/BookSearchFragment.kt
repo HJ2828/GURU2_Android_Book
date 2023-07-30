@@ -3,7 +3,6 @@ package com.example.guru2_book
 import android.content.Context
 import android.os.Bundle
 import android.view.KeyEvent
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,8 +10,13 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ImageView
+import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.journeyapps.barcodescanner.ScanContract
+import com.journeyapps.barcodescanner.ScanIntentResult
+import com.journeyapps.barcodescanner.ScanOptions
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -21,16 +25,17 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class BookSearchFragment : Fragment() {
 
-    // 네이버 api 통신을 위한 변수 (애플리케이션 정보 소유자: HJ2828)
+    // 네이버 api 통신을 위한 변수 (네이버 오픈 소스에 애플리케이션을 등록하여 얻은 클라이언트 id와 시크릿)
     private val clientId = "viMu_JjgHzyCvzj2a3g0"   // 클라이언트 id
     private val clientSecret = "gD7Mh7zaV4"         // 클라이언트 시크릿
     private val baseUrl = "https://openapi.naver.com/"  // 네이버 기본 api url
 
     // 위젯 변수
-    lateinit var edtSearch: EditText
-    lateinit var btnSearch: ImageButton
-    lateinit var imgViewText: ImageView
-    lateinit var recyclerViewBook: RecyclerView
+    lateinit var edtSearch: EditText    // 검색 에디트텍스트
+    lateinit var btnSearch: ImageButton // 검색 버튼
+    lateinit var imgViewText: ImageView // '검색 예' 또는 '검색 결과' 이미지뷰
+    lateinit var recyclerViewBook: RecyclerView // 책 정보 리사이큘러뷰
+    lateinit var btnScan: ImageButton   // 책 스캔 버튼
 
     // 리사이클러뷰 어댑터 변수
     lateinit var bookAdapter: BookSearchAdapter
@@ -59,19 +64,32 @@ class BookSearchFragment : Fragment() {
         btnSearch = view.findViewById<ImageButton>(R.id.btnSearch)
         imgViewText = view.findViewById<ImageView>(R.id.imgViewText)
         recyclerViewBook = view.findViewById<RecyclerView>(R.id.recyclerViewBook)
+        btnScan = view.findViewById<ImageButton>(R.id.btnScan)
 
         // RecyclerView 어댑터 생성 및 설정
-        bookAdapter = BookSearchAdapter(emptyList(), userEmail)
+        bookAdapter = BookSearchAdapter(mutableListOf(), userEmail)
         recyclerViewBook.layoutManager = LinearLayoutManager(context)      //LinearLayoutManager: 아이템들을 수직 방향으로 나열
         recyclerViewBook.adapter = bookAdapter
         recyclerViewBook.setHasFixedSize(true)      // setHasFixedSize(true): 리사이클러뷰 크기 고정
 
         // 리스너 연결
+        btnScan.setOnClickListener { // 책 스캔 버튼
+            val options = ScanOptions()
+
+            options.setPrompt("책 바코드를 스캔하세요")
+            options.setCameraId(0) // 후면 카메라 사용 (1: 전면 카메라)
+            options.setBeepEnabled(false)   // 스캔 시 삑 소리 유무
+
+            barcodeLauncher.launch(options) // 바코드 스캔 실행
+        }
+
         btnSearch.setOnClickListener {  // 검색 버튼
             imgViewText.setImageResource(R.drawable.booksearch_resulttext)    // '검색 결과' 이미지로 변경
             val query = edtSearch.text.toString().trim()    // editText에 검색한 검색어
-            if (query.isNotEmpty()) {  // 검색하지 않고 버튼 클릭(검색어가 비어있음)
+            if (query.isNotEmpty()) {  // 검색 버튼 클릭
                 searchBooks(query)     // api를 통해 책 정보 얻는 함수 호출
+            } else {  // 검색하지 않고 버튼 클릭(검색어가 비어있음)
+                bookAdapter.clearData()
             }
         }
 
@@ -129,5 +147,18 @@ class BookSearchFragment : Fragment() {
                     putString("USEREMAIL", email)
                 }
             }
+    }
+
+    private val barcodeLauncher = registerForActivityResult<ScanOptions, ScanIntentResult>( // 바코드 스캔(ISBN 스캔)
+        ScanContract()
+    ) {
+            result: ScanIntentResult ->
+        if (result.contents == null) {  // 스캔하여 얻은 값이 없을 경우
+            Toast.makeText(context, "스캔이 취소되었습니다", Toast.LENGTH_SHORT).show()
+        } else {    // 스캔하여 값을 얻었을 경우
+            imgViewText.setImageResource(R.drawable.booksearch_resulttext)    // '검색 결과' 이미지로 변경
+            edtSearch.setText(result.contents)  // 값(ISBN)을 검색 에디트 텍스트에 표시
+            searchBooks(result.contents)    // 값(ISBN)을 넣어 책 정보 얻기
+        }
     }
 }

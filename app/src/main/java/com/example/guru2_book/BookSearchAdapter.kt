@@ -10,7 +10,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
-class BookSearchAdapter(private var bookList: List<NaverBookItem>, private var userEmail : String?) : RecyclerView.Adapter<BookSearchAdapter.BookViewHolder>() {
+class BookSearchAdapter(private var bookList: MutableList<NaverBookItem>, private var userEmail : String?) : RecyclerView.Adapter<BookSearchAdapter.BookViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_book, parent, false)
@@ -39,7 +39,14 @@ class BookSearchAdapter(private var bookList: List<NaverBookItem>, private var u
 
     // 새로운 데이터로 기존 bookList를 갱신하고 리사이클러뷰를 갱신하는 함수
     fun updateData(newList: List<NaverBookItem>) {
-        bookList = newList
+        bookList.clear()
+        bookList.addAll(newList)
+        notifyDataSetChanged()   // 어댑터에 데이터 변경 알림
+    }
+
+    // 리스트 비우는 함수
+    fun clearData() {
+        bookList.clear()
         notifyDataSetChanged()   // 어댑터에 데이터 변경 알림
     }
 
