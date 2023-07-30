@@ -185,7 +185,9 @@ class BookShelfFragment : Fragment() {
             intent.putExtra("USEREMAIL", email)
             intent.putExtra("PROFILENUM", pNum)
             intent.putExtra("ISLOOKING", true)
+            intent.putExtra("FROMSHELF", true)
             startActivity(intent)
+            activity?.finish()
         }
     }
 

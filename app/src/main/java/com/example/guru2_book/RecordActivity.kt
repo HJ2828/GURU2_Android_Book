@@ -1,6 +1,7 @@
 package com.example.guru2_book
 
 import android.content.DialogInterface
+import android.content.Intent
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.icu.text.SimpleDateFormat
@@ -42,6 +43,9 @@ class RecordActivity : AppCompatActivity() {
     // 데이터베이스 변수
     lateinit var dbManager: DBManager
     lateinit var bookDB : SQLiteDatabase
+    var fromShelf : Boolean = false // 책장에서 넘어옴
+
+    // 기타 변수
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,6 +71,7 @@ class RecordActivity : AppCompatActivity() {
         profileNum = intent.getIntExtra("PROFILENUM", 0)
         bookISBN = intent.getStringExtra("BOOKISBN").toString()
         isLooking = intent.getBooleanExtra("ISLOOKING", false)
+        fromShelf = intent.getBooleanExtra("FROMSHELF", false)
 
         changeVersion() // 화면 활성화
 
@@ -110,6 +115,14 @@ class RecordActivity : AppCompatActivity() {
                 bookDB.execSQL("UPDATE Read SET RReport = NULL, RRating = 0 WHERE RISBN = '$bookISBN' AND REmail = '$userEmail' AND RNum = $profileNum;")
 
                 bookDB.close()
+
+                if(fromShelf) { // 책장에서 넘어온 경우 인텐트로 이동
+                    val shelfIntent = Intent(this, MainActivity::class.java)
+                    shelfIntent.putExtra("FROMSHELF", true)
+                    shelfIntent.putExtra("USEREMAIL", userEmail)
+                    startActivity(shelfIntent)
+                }
+
                 finish()
 
             })
