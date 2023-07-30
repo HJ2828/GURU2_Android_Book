@@ -60,22 +60,302 @@
                 android:textStyle="bold"
                 android:textAlignment="textStart"/>
 
-            <GridView
-                android:id="@+id/gridViewCharacter"
-                android:layout_width="wrap_content"
-                android:layout_height="300dp"
-                android:gravity="center"
-                android:layout_marginHorizontal="30dp"
-                android:numColumns="4"/>
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:stretchColumns="*"
+                android:layout_margin="15dp"
+                android:layout_weight="3">
 
-            <ImageButton
-                android:id="@+id/btnEquip"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="#00000000"
-                android:src="@drawable/character_btnequip"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="30dp"/>
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <FrameLayout
+                        android:layout_weight="1"
+                        android:layout_marginHorizontal="10dp">
+
+                        <ImageView
+                            android:id="@+id/imageCheck00"
+                            android:visibility="invisible"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/character_check" />
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:id="@+id/imageCha00"
+                            android:src="@drawable/character_egg_shadow" />
+                    </FrameLayout>
+                    <FrameLayout
+                        android:layout_weight="1"
+                        android:layout_marginHorizontal="10dp">
+                        <ImageView
+                            android:id="@+id/imageCheck04"
+                            android:visibility="invisible"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/character_check"/>
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:id="@+id/imageCha04"
+                            android:src="@drawable/character_bab_shadow" />
+                    </FrameLayout>
+                    <FrameLayout
+                        android:layout_weight="1"
+                        android:layout_marginHorizontal="10dp">
+                        <ImageView
+                            android:id="@+id/imageCheck08"
+                            android:visibility="invisible"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/character_check"/>
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:id="@+id/imageCha08"
+                            android:src="@drawable/character_rabbit_shadow" />
+                    </FrameLayout>
+                    <FrameLayout
+                        android:layout_weight="1"
+                        android:layout_marginHorizontal="10dp">
+                        <ImageView
+                            android:id="@+id/imageCheck12"
+                            android:visibility="invisible"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/character_check"/>
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:id="@+id/imageCha12"
+                            android:src="@drawable/character_polarbear_shadow" />
+                    </FrameLayout>
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <FrameLayout
+                        android:layout_weight="1"
+                        android:layout_marginHorizontal="10dp">
+                        <ImageView
+                            android:id="@+id/imageCheck01"
+                            android:visibility="invisible"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/character_check"/>
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:id="@+id/imageCha01"
+                            android:src="@drawable/character_egg_shadow" />
+                    </FrameLayout>
+                    <FrameLayout
+                        android:layout_weight="1"
+                        android:layout_marginHorizontal="10dp">
+                        <ImageView
+                            android:id="@+id/imageCheck05"
+                            android:visibility="invisible"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/character_check"/>
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:id="@+id/imageCha05"
+                            android:src="@drawable/character_bab_shadow" />
+                    </FrameLayout>
+                    <FrameLayout
+                        android:layout_weight="1"
+                        android:layout_marginHorizontal="10dp">
+                        <ImageView
+                            android:id="@+id/imageCheck09"
+                            android:visibility="invisible"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/character_check"/>
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:id="@+id/imageCha09"
+                            android:src="@drawable/character_rabbit_shadow" />
+                    </FrameLayout>
+                    <FrameLayout
+                        android:layout_weight="1"
+                        android:layout_marginHorizontal="10dp">
+                        <ImageView
+                            android:id="@+id/imageCheck13"
+                            android:visibility="invisible"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/character_check"/>
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:id="@+id/imageCha13"
+                            android:src="@drawable/character_polarbear_shadow" />
+                    </FrameLayout>
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <FrameLayout
+                        android:layout_weight="1"
+                        android:layout_marginHorizontal="10dp">
+                        <ImageView
+                            android:id="@+id/imageCheck02"
+                            android:visibility="invisible"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/character_check"/>
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:id="@+id/imageCha02"
+                            android:src="@drawable/character_egg_shadow" />
+                    </FrameLayout>
+                    <FrameLayout
+                        android:layout_weight="1"
+                        android:layout_marginHorizontal="10dp">
+                        <ImageView
+                            android:id="@+id/imageCheck06"
+                            android:visibility="invisible"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/character_check"/>
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:id="@+id/imageCha06"
+                            android:src="@drawable/character_bab_shadow" />
+                    </FrameLayout>
+                    <FrameLayout
+                        android:layout_weight="1"
+                        android:layout_marginHorizontal="10dp">
+                        <ImageView
+                            android:id="@+id/imageCheck10"
+                            android:visibility="invisible"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/character_check"/>
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:id="@+id/imageCha10"
+                            android:src="@drawable/character_rabbit_shadow" />
+                    </FrameLayout>
+                    <FrameLayout
+                        android:layout_weight="1"
+                        android:layout_marginHorizontal="10dp">
+                        <ImageView
+                            android:id="@+id/imageCheck14"
+                            android:visibility="invisible"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/character_check"/>
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:id="@+id/imageCha14"
+                            android:src="@drawable/character_polarbear_shadow" />
+                    </FrameLayout>
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <FrameLayout
+                        android:layout_weight="1"
+                        android:layout_marginHorizontal="10dp">
+                        <ImageView
+                            android:id="@+id/imageCheck03"
+                            android:visibility="invisible"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/character_check"/>
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:id="@+id/imageCha03"
+                            android:src="@drawable/character_egg_shadow" />
+                    </FrameLayout>
+                    <FrameLayout
+                        android:layout_weight="1"
+                        android:layout_marginHorizontal="10dp">
+                        <ImageView
+                            android:id="@+id/imageCheck07"
+                            android:visibility="invisible"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/character_check"/>
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:id="@+id/imageCha07"
+                            android:src="@drawable/character_bab_shadow" />
+                    </FrameLayout>
+                    <FrameLayout
+                        android:layout_weight="1"
+                        android:layout_marginHorizontal="10dp">
+                        <ImageView
+                            android:id="@+id/imageCheck11"
+                            android:visibility="invisible"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/character_check"/>
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:id="@+id/imageCha11"
+                            android:src="@drawable/character_rabbit_shadow" />
+                    </FrameLayout>
+                    <FrameLayout
+                        android:layout_weight="1"
+                        android:layout_marginHorizontal="10dp">
+                        <ImageView
+                            android:id="@+id/imageCheck15"
+                            android:visibility="invisible"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/character_check"/>
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:id="@+id/imageCha15"
+                            android:src="@drawable/character_polarbear_shadow" />
+                    </FrameLayout>
+
+                </TableRow>
+            </TableLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:gravity="center_horizontal"
+                android:layout_weight="1">
+
+                <ImageButton
+                    android:id="@+id/btnEquip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#00000000"
+                    android:src="@drawable/character_btnequip"
+                    android:layout_gravity="center_horizontal"/>
+
+            </LinearLayout>
 
         </LinearLayout>
 

@@ -32,7 +32,7 @@ class HomeFragment : Fragment() {
 
     // 캐릭터 이미지 변수
     var mainCharacters = arrayOf(
-        R.drawable.home_chick0, R.drawable.home_chick1, R.drawable.home_chick2, R.drawable.home_chick3,
+        R.drawable.home_chick1, R.drawable.home_chick0, R.drawable.home_chick2, R.drawable.home_chick3,
         R.drawable.home_bab0, R.drawable.home_bab1, R.drawable.home_bab2, R.drawable.home_bab3,
         R.drawable.home_rabbit0, R.drawable.home_rabbit1, R.drawable.home_rabbit2, R.drawable.home_rabbit3,
         R.drawable.home_polarbear0, R.drawable.home_polarbear1, R.drawable.home_polarbear2, R.drawable.home_polarbear3
@@ -79,7 +79,7 @@ class HomeFragment : Fragment() {
 
         // 리스너 연결
         btnCharacter.setOnClickListener { // 캐릭터 도감 보기 버튼
-            activity?.fragmentChangeInFragment(CharacterFragment()) // 캐릭터 도감 프래그먼트로 변경
+            activity?.fragmentChangeInFragment(CharacterFragment.newInstance(userEmail)) // 캐릭터 도감 프래그먼트로 변경
         }
 
         return view

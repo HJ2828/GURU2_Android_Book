@@ -11,6 +11,7 @@ import android.util.Log
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import com.bumptech.glide.Glide
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -20,6 +21,9 @@ class BookInfoActivity : AppCompatActivity() {
     // 기본 정보 변수
     private var userEmail : String? = null // 사용자 이메일
     private var profileNum : Int = 0 // 사용자 프로필 번호
+    private var curGoalNum : Int = 0 // 현재 목표 번호
+    private var goalBookCount : Int = 0 // 완독해야 하는 책 수
+    private var curBookCount : Int = 0 // 현재 완독한 책 수
 
     // 위젯 변수
     lateinit var btnBackBook: ImageButton // 뒤로가기 버튼
@@ -72,14 +76,9 @@ class BookInfoActivity : AppCompatActivity() {
         btnWrite = findViewById(R.id.btnWrite)
         btnRead = findViewById(R.id.btnRead)
 
-        // 사용자 이메일 및 책 정보 받아오기
+        // 사용자 이메일 및 책 정보, 사용자 현재 목표 번호 받아오기
         bookDB = dbManager.readableDatabase
         var cursor : Cursor
-        cursor = bookDB.rawQuery("SELECT ACurrentProfile FROM Account WHERE AEmail = '$userEmail';", null)
-        if(cursor.moveToNext()){
-            profileNum = cursor.getInt(0)
-        }
-
         userEmail = intent.getStringExtra("USEREMAIL")
         if(intent.hasExtra("bookTitle")){
             title = intent.getStringExtra("bookTitle")
@@ -103,10 +102,28 @@ class BookInfoActivity : AppCompatActivity() {
             }
         }
 
+        cursor = bookDB.rawQuery("SELECT ACurrentProfile FROM Account WHERE AEmail = '$userEmail';", null) // 사용자 프로필 정보
+        if(cursor.moveToNext()){
+            profileNum = cursor.getInt(0)
+        }
+
+        cursor = bookDB.rawQuery("SELECT GoalNum FROM Profile WHERE PEmail = '$userEmail' AND PNum = $profileNum;", null) // 목표 번호
+        if(cursor.moveToNext()){
+            curGoalNum = cursor.getInt(0)
+        }
+        cursor = bookDB.rawQuery("SELECT GCount FROM Goal WHERE GNum = $curGoalNum;", null) // 목표 책 수
+        if(cursor.moveToNext()){
+            goalBookCount = cursor.getInt(0)
+        }
+
+        cursor = bookDB.rawQuery("SELECT * FROM Read WHERE REmail = '$userEmail' AND RNum = $profileNum;", null) // 완독한 책 수
+        curBookCount = cursor.count
+
         cursor.close()
         bookDB.close()
 
         getUserInfo() // 찜 상태, 완독 상태 가져오기
+
         // 찜 상태, 완독 상태 설정
         if(isDibs){
             btnDibs.setImageResource(R.drawable.hearticon) // 찜 상태 이미지
@@ -128,12 +145,14 @@ class BookInfoActivity : AppCompatActivity() {
         textPubDate.text = pubDate
         textStory.text = story
 
+        setQuoteData() // 쌍따옴표, 따옴표 처리
 
         // 리스너 설정
         btnBackBook.setOnClickListener { // 뒤로가기 버튼
             if(fromShelf){ // 책장에서 넘어온 경우 인텐트로 이동
                 val shelfIntent = Intent(this, MainActivity::class.java)
                 shelfIntent.putExtra("FROMSHELF", true)
+                shelfIntent.putExtra("USEREMAIL", userEmail)
                 startActivity(shelfIntent)
             }
             finish()
@@ -187,7 +206,23 @@ class BookInfoActivity : AppCompatActivity() {
                 btnFinish.setImageResource(R.drawable.bookicon) // 완독 이미지
                 isFinished = true
 
+                // 완독한 책 수 목표를 채웠을 경우
+                if(curBookCount + 1 == goalBookCount) {
+                    curGoalNum++
+                    bookDB.execSQL("UPDATE Profile SET GoalNum = $curGoalNum WHERE PEmail = '$userEmail' AND PNum = $profileNum ;") // 목표 올리기
+                    if(curGoalNum == 16){ // 마지막 목표일 경우
+                        Toast.makeText(this, "캐릭터를 모두 얻었습니다.", Toast.LENGTH_SHORT).show() // 캐릭터를 모두 얻었다고 안내
+                    } else if(curGoalNum == 1){ // 첫 목표를 달성했을 경우
+                        bookDB.execSQL("UPDATE Profile SET PMainImgNum = 0 WHERE PEmail = '$userEmail' AND PNum = $profileNum ;")
+                        Toast.makeText(this, "새로운 캐릭터를 얻었습니다.", Toast.LENGTH_SHORT).show() // 새로운 캐릭터를 얻었다고 안내
+                    }
+                    else {
+                        Toast.makeText(this, "새로운 캐릭터를 얻었습니다.", Toast.LENGTH_SHORT).show() // 새로운 캐릭터를 얻었다고 안내
+                    }
+                }
+
             }
+
             bookDB.close()
         }
 
@@ -247,5 +282,19 @@ class BookInfoActivity : AppCompatActivity() {
         bookDB.close()
         bookDB = dbManager.writableDatabase // 데이터베이스 불러오기
         return count
+    }
+
+    // 쌍따옴표, 따옴표 처리
+    fun setQuoteData(){
+        // 따옴표 처리
+        title = title!!.replace("\'", "\'\'")
+        author = author!!.replace("\'", "\'\'")
+        publisher = publisher!!.replace("\'", "\'\'")
+        story = story!!.replace("\'", "\'\'")
+        // 쌍따옴표 처리
+        title = title!!.replace("\"", "\"\"")
+        author = author!!.replace("\"", "\"\"")
+        publisher = publisher!!.replace("\"", "\"\"")
+        story = story!!.replace("\"", "\"\"")
     }
 }

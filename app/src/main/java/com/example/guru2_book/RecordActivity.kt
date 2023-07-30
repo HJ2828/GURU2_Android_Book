@@ -158,6 +158,7 @@ class RecordActivity : AppCompatActivity() {
 
     // 독후감 보기 버전으로 바꾸기
     fun changeIntoLook(){
+        isLooking = true
         // 독후감 보기 타이틀 보이도록 설정
         lookTitle.visibility = View.VISIBLE
         writeTitle.visibility = View.INVISIBLE
@@ -172,6 +173,7 @@ class RecordActivity : AppCompatActivity() {
 
     // 독후감 작성 버전으로 바꾸기
     fun changeIntoWrite(){
+        isLooking = false
         // 독후감 작성 타이틀 보이도록 설정
         lookTitle.visibility = View.INVISIBLE
         writeTitle.visibility = View.VISIBLE

@@ -50,7 +50,11 @@ class SignupActivity : AppCompatActivity() {
 
         btnDup.setOnClickListener { // 이메일 중복 확인 버튼
             var email : String = edtEmail.text.toString()
-            checkDupEmail(email) // 중복 확인 변수
+            if(email.trim().isEmpty()){ // 이메일 칸이 빈칸일 경우
+                Toast.makeText(applicationContext, "이메일을 입력해주십시오", Toast.LENGTH_SHORT).show() // 이메일을 입력해달라는 달라는 토스트
+            } else {
+                checkDupEmail(email) // 중복 확인 변수
+            }
         }
 
         btnOkay.setOnClickListener {

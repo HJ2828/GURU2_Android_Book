@@ -13,6 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
+import androidx.core.view.marginRight
 import com.bumptech.glide.Glide
 
 
@@ -146,15 +147,17 @@ class BookShelfFragment : Fragment() {
     // 책 표지 imageView 생성 함수
     fun makeImageBook(isbn : String, layout: LinearLayout, uri : Uri){
         var imageBook : ImageView = ImageView(fContext)// 책 표지 imageView
+        // 속성 설정
         val layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, resources.getDimension(R.dimen.book_height).toInt()) // 크기 설정
+        layoutParams.marginEnd = 15
         imageBook.layoutParams = layoutParams
         imageBook.scaleType = ImageView.ScaleType.FIT_START
         getActivity()?.let { Glide.with(it).load(uri).into(imageBook) }
         when(layout.id){
-            R.id.linearRead, R.id.linearWant -> {
+            R.id.linearRead, R.id.linearWant -> { // 완독, 찜한 도서일 경우 책 정보로 이동
                 goBookInfo(imageBook, isbn, userEmail, profileNum)
             }
-            R.id.linearRecord -> {
+            R.id.linearRecord -> { // 독후감 도서일 경우 독후감으로 이동
                 goRecord(imageBook, isbn, userEmail, profileNum)
             }
         }
