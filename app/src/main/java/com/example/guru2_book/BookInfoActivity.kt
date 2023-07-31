@@ -128,13 +128,13 @@ class BookInfoActivity : AppCompatActivity() {
 
         // 찜 상태, 완독 상태 설정
         if(isDibs){
-            btnDibs.setImageResource(R.drawable.hearticon) // 찜 상태 이미지
+            btnDibs.setImageResource(R.drawable.bookinfo_btndibs) // 찜 상태 이미지
         } else {
-            btnDibs.setImageResource(R.drawable.heartshadowicon) // 찜 해제 이미지
+            btnDibs.setImageResource(R.drawable.bookinfo_btnnotdibs) // 찜 해제 이미지
         }
 
         if(isFinished){
-            btnFinish.setImageResource(R.drawable.bookicon) // 완독 이미지
+            btnFinish.setImageResource(R.drawable.bookinfo_btnfinish) // 완독 이미지
         } else {
             btnFinish.setImageResource(R.drawable.bookinfo_btnnotfinish) // 완독 해제 이미지
         }
