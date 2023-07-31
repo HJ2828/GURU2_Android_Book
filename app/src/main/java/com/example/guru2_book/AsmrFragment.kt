@@ -12,17 +12,17 @@ import android.widget.Toast
 
 class AsmrFragment : Fragment() {
 
-    lateinit var btnPlay1: ImageButton
-    lateinit var btnPlay2: ImageButton
-    lateinit var btnPlay3: ImageButton
-    lateinit var btnPlay4: ImageButton
-    lateinit var btnPlay5: ImageButton
-
-    lateinit var seekBarVolume1: SeekBar
-    lateinit var seekBarVolume2: SeekBar
-    lateinit var seekBarVolume3: SeekBar
-    lateinit var seekBarVolume4: SeekBar
-    lateinit var seekBarVolume5: SeekBar
+    // 위젯 변수
+    lateinit var btnPlay1: ImageButton  // 재생 버튼1
+    lateinit var btnPlay2: ImageButton  // 재생 버튼2
+    lateinit var btnPlay3: ImageButton  // 재생 버튼3
+    lateinit var btnPlay4: ImageButton  // 재생 버튼4
+    lateinit var btnPlay5: ImageButton  // 재생 버튼5
+    lateinit var seekBarVolume1: SeekBar    // 볼륨 조절 시크바1
+    lateinit var seekBarVolume2: SeekBar    // 볼륨 조절 시크바2
+    lateinit var seekBarVolume3: SeekBar    // 볼륨 조절 시크바3
+    lateinit var seekBarVolume4: SeekBar    // 볼륨 조절 시크바4
+    lateinit var seekBarVolume5: SeekBar    // 볼륨 조절 시크바5
 
     // 미디어 플레이어 객체 생성을 위한 변수
     lateinit var asmr1: MediaPlayer
@@ -57,14 +57,13 @@ class AsmrFragment : Fragment() {
         btnPlay3 = view.findViewById(R.id.btnPlay3)
         btnPlay4 = view.findViewById(R.id.btnPlay4)
         btnPlay5 = view.findViewById(R.id.btnPlay5)
-
         seekBarVolume1 = view.findViewById(R.id.seekBarVolume1)
         seekBarVolume2 = view.findViewById(R.id.seekBarVolume2)
         seekBarVolume3 = view.findViewById(R.id.seekBarVolume3)
         seekBarVolume4 = view.findViewById(R.id.seekBarVolume4)
         seekBarVolume5 = view.findViewById(R.id.seekBarVolume5)
 
-        // 초기 시크바 움직이지 못하게
+        // 초기 시크바 움직이지 못하게 설정
         seekBarVolume1.isEnabled = false
         seekBarVolume2.isEnabled = false
         seekBarVolume3.isEnabled = false
