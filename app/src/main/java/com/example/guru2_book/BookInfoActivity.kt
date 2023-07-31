@@ -1,6 +1,7 @@
 package com.example.guru2_book
 
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
@@ -12,6 +13,7 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import com.bumptech.glide.Glide
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -185,14 +187,21 @@ class BookInfoActivity : AppCompatActivity() {
 
         btnFinish.setOnClickListener { // 완독 버튼
             if(isFinished) { // 완독 상태
-                if(checkBookTable() <= 1) { // 1명 이하(본인만 있는 경우)
-                    bookDB.execSQL("DELETE FROM Book WHERE ISBN = '$isbn';")
-                }
-                // 읽은 책 목록에서 해당 사용자의 정보 삭제
-                bookDB.execSQL("DELETE FROM Read WHERE RISBN = '$isbn' AND REmail = '$userEmail' AND RNum = $profileNum;")
+                var dlg = AlertDialog.Builder(this)
+                dlg.setTitle("완독을 취소하시겠습니까?")
+                dlg.setMessage("완독을 취소하시면 기존에 작성하신 독후감이 삭제됩니다.")
+                dlg.setPositiveButton("완독취소", DialogInterface.OnClickListener { dialogInterface, i ->
+                    if(checkBookTable() <= 1) { // 1명 이하(본인만 있는 경우)
+                        bookDB.execSQL("DELETE FROM Book WHERE ISBN = '$isbn';")
+                    }
+                    // 읽은 책 목록에서 해당 사용자의 정보 삭제
+                    bookDB.execSQL("DELETE FROM Read WHERE RISBN = '$isbn' AND REmail = '$userEmail' AND RNum = $profileNum;")
 
-                btnFinish.setImageResource(R.drawable.bookinfo_btnnotfinish) // 완독 해제 이미지
-                isFinished = false
+                    btnFinish.setImageResource(R.drawable.bookinfo_btnnotfinish) // 완독 해제 이미지
+                    isFinished = false
+                })
+                dlg.setNegativeButton("완독유지", null)
+                dlg.show()
 
             } else { // 완독 상태 아님
                 if(checkBookTable() <= 0) { // 아무도 없을 때
@@ -227,21 +236,29 @@ class BookInfoActivity : AppCompatActivity() {
         }
 
         btnWrite.setOnClickListener { // 독서록 쓰기 버튼
-            val intent = Intent(this, RecordActivity::class.java)
-            intent.putExtra("BOOKISBN", isbn)
-            intent.putExtra("USEREMAIL", userEmail)
-            intent.putExtra("PROFILENUM", profileNum)
-            intent.putExtra("ISLOOKING", false)
-            startActivity(intent)
+            if(isFinished){
+                val intent = Intent(this, RecordActivity::class.java)
+                intent.putExtra("BOOKISBN", isbn)
+                intent.putExtra("USEREMAIL", userEmail)
+                intent.putExtra("PROFILENUM", profileNum)
+                intent.putExtra("ISLOOKING", false)
+                startActivity(intent)
+            } else {
+                Toast.makeText(this, "완독 버튼을 먼저 눌러주세요.", Toast.LENGTH_SHORT).show()
+            }
         }
 
         btnRead.setOnClickListener { // 독서록 읽기 버튼
-            val intent = Intent(this, RecordActivity::class.java)
-            intent.putExtra("BOOKISBN", isbn)
-            intent.putExtra("USEREMAIL", userEmail)
-            intent.putExtra("PROFILENUM", profileNum)
-            intent.putExtra("ISLOOKING", true)
-            startActivity(intent)
+            if(isFinished){
+                val intent = Intent(this, RecordActivity::class.java)
+                intent.putExtra("BOOKISBN", isbn)
+                intent.putExtra("USEREMAIL", userEmail)
+                intent.putExtra("PROFILENUM", profileNum)
+                intent.putExtra("ISLOOKING", true)
+                startActivity(intent)
+            } else {
+                Toast.makeText(this, "완독 버튼을 먼저 눌러주세요.", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 

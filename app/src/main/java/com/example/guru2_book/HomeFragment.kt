@@ -131,7 +131,11 @@ class HomeFragment : Fragment() {
         var wantCount : Int = 0 // 찜한 책 수
         cursor = bookDB.rawQuery("SELECT * FROM Want W, Book B WHERE W.WISBN = B.ISBN AND W.WEmail = '$userEmail' AND W.WNum = $profileNum ;", null)
         wantCount = cursor.count
-        textDibs.text = "찜한 책 수: $wantCount 권"
+        if(goalNum == 16){
+            textDibs.text = "모든 목표를 달성하셨습니다."
+        } else {
+            textDibs.text = "찜한 책 수: $wantCount 권"
+        }
 
         cursor.close()
         bookDB.close()
