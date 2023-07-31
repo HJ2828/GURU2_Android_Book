@@ -119,7 +119,11 @@ class HomeFragment : Fragment() {
         if(cursor.moveToNext()){
             bCount = cursor.getInt(0)
         }
-        textGoal.text = "책 $bCount 권 읽기"
+        if(goalNum == 16){
+            textGoal.text = "모든 목표를 달성하셨습니다."
+        } else {
+            textGoal.text = "책 $bCount 권 읽기"
+        }
 
         // 현재 읽은 책 수 가져오기 및 책 수 넣기
         var readCount : Int = 0 // 읽은 책 수
@@ -131,11 +135,7 @@ class HomeFragment : Fragment() {
         var wantCount : Int = 0 // 찜한 책 수
         cursor = bookDB.rawQuery("SELECT * FROM Want W, Book B WHERE W.WISBN = B.ISBN AND W.WEmail = '$userEmail' AND W.WNum = $profileNum ;", null)
         wantCount = cursor.count
-        if(goalNum == 16){
-            textDibs.text = "모든 목표를 달성하셨습니다."
-        } else {
-            textDibs.text = "찜한 책 수: $wantCount 권"
-        }
+        textDibs.text = "찜한 책 수: $wantCount 권"
 
         cursor.close()
         bookDB.close()
