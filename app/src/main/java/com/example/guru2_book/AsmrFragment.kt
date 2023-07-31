@@ -222,7 +222,7 @@ class AsmrFragment : Fragment() {
             }
         }
         if (isToast) {
-            Toast.makeText(context, "asmr이 중지되었습니다", Toast.LENGTH_SHORT).show() // 소리 재생 중지 토스트
+            Toast.makeText(context, "asmr이 중지되었습니다.", Toast.LENGTH_SHORT).show() // 소리 재생 중지 토스트
         }
     }
 

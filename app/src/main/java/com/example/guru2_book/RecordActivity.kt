@@ -132,8 +132,8 @@ class RecordActivity : AppCompatActivity() {
 
         btnOkay.setOnClickListener { // 작성 완료 버튼
             var bookRecord : String = edtRecord.text.toString()
-            var bRating : Float = ratingBook.rating
-            if(bRating == 0.0f && bookRecord.trim().isEmpty()){ // 아무것도 작성하지 않았을 경우
+            var bRating = ratingBook.rating
+            if(bRating == 0f && bookRecord.trim().isEmpty()){ // 아무것도 작성하지 않았을 경우
                 var dlg = AlertDialog.Builder(this) // 독후감을 작성하지 않을지에 대화상자
                 dlg.setMessage("독후감을 작성하지 않고 나가시겠습니까?")
                 dlg.setPositiveButton("나가기", DialogInterface.OnClickListener { dialogInterface, i ->

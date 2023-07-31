@@ -154,7 +154,7 @@ class BookSearchFragment : Fragment() {
     ) {
             result: ScanIntentResult ->
         if (result.contents == null) {  // 스캔하여 얻은 값이 없을 경우
-            Toast.makeText(context, "스캔이 취소되었습니다", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "스캔이 취소되었습니다.", Toast.LENGTH_SHORT).show()
         } else {    // 스캔하여 값을 얻었을 경우
             imgViewText.setImageResource(R.drawable.booksearch_resulttext)    // '검색 결과' 이미지로 변경
             edtSearch.setText(result.contents)  // 값(ISBN)을 검색 에디트 텍스트에 표시

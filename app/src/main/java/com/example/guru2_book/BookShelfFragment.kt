@@ -131,7 +131,7 @@ class BookShelfFragment : Fragment() {
         // 독후감을 작성한 책 리스트를 작성한 날짜 순으로 가져오기
         var cursor : Cursor
         cursor = bookDB.rawQuery(
-            "SELECT ISBN, Bimage, RReportDate FROM Read R, Book B WHERE (R.RISBN = B.ISBN AND R.REmail = '$userEmail' AND R.RNum = $profileNum) AND (R.RReport IS NOT NULL || R.RRating != 0) ORDER BY R.RReportDate ASC;", null)
+            "SELECT ISBN, Bimage, RReportDate FROM Read R, Book B WHERE (R.RISBN = B.ISBN AND R.REmail = '$userEmail' AND R.RNum = $profileNum) AND (R.RReport IS NOT NULL OR R.RRating != 0) ORDER BY R.RReportDate ASC;", null)
 
         while(cursor.moveToNext()){
             var isbn : String = cursor.getString(0)

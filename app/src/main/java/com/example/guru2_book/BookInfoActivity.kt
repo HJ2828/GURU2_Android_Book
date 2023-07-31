@@ -166,7 +166,7 @@ class BookInfoActivity : AppCompatActivity() {
                 // 찜 목록에서 해당 사용자의 정보 삭제
                 bookDB.execSQL("DELETE FROM Want WHERE WISBN = '$isbn' AND WEmail = '$userEmail' AND WNum = $profileNum;")
 
-                btnDibs.setImageResource(R.drawable.heartshadowicon) // 찜 해제 이미지
+                btnDibs.setImageResource(R.drawable.bookinfo_btnnotdibs) // 찜 해제 이미지
                 isDibs = false
             } else { // 찜 상태 아님
                 if(checkBookTable() <= 0) { // 아무도 없을 때
@@ -177,7 +177,7 @@ class BookInfoActivity : AppCompatActivity() {
                 var date : Long = SimpleDateFormat("yyyyMMddHHmmss").format(System.currentTimeMillis()).toLong()
                 bookDB.execSQL("INSERT INTO Want VALUES ('$isbn', '$userEmail', $profileNum, $date);")
 
-                btnDibs.setImageResource(R.drawable.hearticon) // 찜 상태 이미지
+                btnDibs.setImageResource(R.drawable.bookinfo_btndibs) // 찜 상태 이미지
                 isDibs = true
             }
             bookDB.close()
@@ -203,7 +203,7 @@ class BookInfoActivity : AppCompatActivity() {
                 var date : Long = SimpleDateFormat("yyyyMMddHHmmss").format(System.currentTimeMillis()).toLong()
                 bookDB.execSQL("INSERT INTO Read(RISBN, REmail, RNum, RReadDate) VALUES ('$isbn', '$userEmail', $profileNum, $date);")
 
-                btnFinish.setImageResource(R.drawable.bookicon) // 완독 이미지
+                btnFinish.setImageResource(R.drawable.bookinfo_btnfinish) // 완독 이미지
                 isFinished = true
 
                 // 완독한 책 수 목표를 채웠을 경우
