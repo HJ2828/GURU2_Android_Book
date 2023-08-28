@@ -30,6 +30,7 @@
 - Android Kotlin
 - sdk 33(API 33: Android 13.0(Tiramisu))
 - jdk jbr-17
+- DB: SQLite
 - Gradle
 
 
